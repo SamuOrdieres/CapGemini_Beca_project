@@ -1,52 +1,74 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
     <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1" %>
-        <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-        <html>
-        <head>
-            <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-            <title>Login</title>
-            
-            <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-            
-            
-        </head>
-        <body>
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>SB Admin - Login</title>
+
+    <!-- Bootstrap core CSS-->
+    <link href="${pageContext.request.contextPath}/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom fonts for this template-->
+    <link href="${pageContext.request.contextPath}/assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+
+    <!-- Custom styles for this template-->
+    <link href="${pageContext.request.contextPath}/assets/css/sb-admin.css" rel="stylesheet">
+
+  </head>
+
+  <body class="bg-dark">
+
+    <div class="container">
+      <div class="card card-login mx-auto mt-5">
+        <div class="card-header">Login</div>
+        <div class="card-body">
             <form:form id="loginForm" modelAttribute="usuario" action="loginProcess" method="post">
-                <table align="center">
-                    <tr>
-                        <td>
-                            <form:label path="login">Login: </form:label>
-                        </td>
-                        <td>
-                            <form:input path="login" name="login" id="login" />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <form:label path="password">Password:</form:label>
-                        </td>
-                        <td>
-                            <form:password path="password" name="password" id="password" />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td align="left">
-                            <input type="submit">
-                        </td>
-                    </tr>
-                    <tr></tr>
-                    
-                </table>
-            </form:form>
-            <table align="center">
-                <tr>
-                    <td style="font-style: italic; color: red;">${message}</td>
-                </tr>
-            </table>
-            <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
- 
-        </body>
-        </html>
+            <div class="form-group">
+              <div class="form-label-group">
+                <form:input path="login" id="login" class="form-control" placeholder="Email address" required="required" autofocus="autofocus"></form:input>
+                <form:label path="login" for="login">Email address</form:label>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="form-label-group">
+                <form:password path="password" id="password" class="form-control" placeholder="Password" required="required"></form:password>
+                <form:label path="password" for="password">Password</form:label>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" value="remember-me">
+                  Remember Password
+                </label>
+              </div>
+            </div>
+<!--             <a class="btn btn-primary btn-block" href="index.html">Login</a> -->
+			<input type="submit">
+          </form:form>
+          <div class="text-center">
+            <a class="d-block small mt-3" href="userregistration">Register an Account</a>
+            <a class="d-block small" href="forgot-password.html">Forgot Password?</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bootstrap core JavaScript-->
+    <script src="${pageContext.request.contextPath}/assets/vendor/jquery/jquery.min.js"></script>
+    <script src="${pageContext.request.contextPath}/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="${pageContext.request.contextPath}/assets/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+  </body>
+
+</html>

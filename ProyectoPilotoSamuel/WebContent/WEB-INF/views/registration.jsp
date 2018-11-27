@@ -1,78 +1,125 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+	pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
- 
-<html>
- 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
+<!DOCTYPE html>
+<html lang="en">
+
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-    <title>Employee Registration Form</title>
- 
- 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
- 
- 
-<style>
- 
-    .error {
-        color: #ff0000;
-    }
-</style>
- 
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="">
+<meta name="author" content="">
+
+<title>SB Admin - Register</title>
+
+<!-- Bootstrap core CSS-->
+<link
+	href="${pageContext.request.contextPath}/assets/vendor/bootstrap/css/bootstrap.min.css"
+	rel="stylesheet">
+
+<!-- Custom fonts for this template-->
+<link
+	href="${pageContext.request.contextPath}/assets/vendor/fontawesome-free/css/all.min.css"
+	rel="stylesheet" type="text/css">
+
+<!-- Custom styles for this template-->
+<link href="${pageContext.request.contextPath}/assets/css/sb-admin.css"
+	rel="stylesheet">
+
 </head>
- 
-<body>
- 
-    <h2>Registration Form</h2>
-  
-    <form:form method="POST" modelAttribute="empleado">
-        <form:input type="hidden" path="id" id="id"/>
-        <table>
-            <tr>
-                <td><label for="nombre">Nombre: </label> </td>
-                <td><form:input path="nombre" id="nombre"/></td>
-                <td><form:errors path="nombre" cssClass="error"/></td>
-            </tr>
-         
-            <tr>
-                <td><label for="fechaAlta">Fecha de Alta: </label> </td>
-                <td><form:input path="fechaAlta" id="fechaAlta"/></td>
-                <td><form:errors path="fechaAlta" cssClass="error"/></td>
-            </tr>
-     
-            <tr>
-                <td><label for="salario">Salario Anual: </label> </td>
-                <td><form:input path="salario" id="salario"/></td>
-                <td><form:errors path="salario" cssClass="error"/></td>
-            </tr>
-     
-            <tr>
-                <td><label for="dni">DNI: </label> </td>
-                <td><form:input path="dni" id="dni"/></td>
-                <td><form:errors path="dni" cssClass="error"/></td>
-            </tr>
-     
-            <tr>
-                <td colspan="3">
-                    <c:choose>
-                        <c:when test="${edit}">
-                            <input type="submit" value="Update"/>
-                        </c:when>
-                        <c:otherwise>
-                            <input type="submit" value="Register"/>
-                        </c:otherwise>
-                    </c:choose>
-                </td>
-            </tr>
-        </table>
-    </form:form>
-    <br/>
-    <br/>
-    Volver al <a href="<c:url value='/list' />">LISTADO DE EMPLEADOS</a>
-    
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
- 
+
+<body class="bg-dark">
+
+	<div class="container">
+		<div class="card card-register mx-auto mt-5">
+			<form:form method="POST" modelAttribute="empleado">
+				<form:input type="hidden" path="id" id="id" />
+				<div class="card-header">Register an Account</div>
+				<div class="card-body">
+					<form>
+						<div class="form-group">
+							<div class="form-row">
+								<div class="col-md-6">
+									<div class="form-label-group">
+										<form:input path="nombre" id="nombre" class="form-control"
+											placeholder="First name" required="required"
+											autofocus="autofocus" />
+										<label for="nombre">Name: </label>
+
+										<form:errors path="nombre" cssClass="error" />
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="form-label-group">
+										<form:input path="fechaAlta" id="fechaAlta"
+											class="form-control" required="required"
+											autofocus="autofocus" />
+										<label for="fechaAlta">Starting Date: </label>
+
+										<form:errors path="fechaAlta" cssClass="error" />
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="form-row">
+								<div class="col-md-6">
+									<div class="form-label-group">
+										<form:input path="dni" id="dni" class="form-control"
+											placeholder="ID Number" required="required"
+											autofocus="autofocus" />
+										<label for="dni">ID Number: </label>
+
+										<form:errors path="dni" cssClass="error" />
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="form-label-group">
+										<form:input path="salario" id="salario" class="form-control"
+											required="required" autofocus="autofocus" />
+										<label for="salario">Salary: </label>
+										<form:errors path="salario" cssClass="error" />
+									</div>
+								</div>
+							</div>
+						</div>
+						<c:choose>
+							<c:when test="${edit}">
+								<input type="submit" value="Update"
+									class="btn btn-primary btn-block" />
+							</c:when>
+							<c:otherwise>
+								<input type="submit" value="Register"
+								class="btn btn-primary btn-block" />
+							</c:otherwise>
+						</c:choose>
+					</form>
+					
+				</div>
+			</form:form>
+			<div class="text-center">
+						<a class="d-block small mt-3" href="login.html">Login Page</a> <a
+							class="d-block small" href="forgot-password.html">Forgot
+							Password?</a>
+					</div>
+		</div>
+	</div>
+
+	<!-- Bootstrap core JavaScript-->
+	<script
+		src="${pageContext.request.contextPath}/assets/vendor/jquery/jquery.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+	<!-- Core plugin JavaScript-->
+	<script
+		src="${pageContext.request.contextPath}/assets/vendor/jquery-easing/jquery.easing.min.js"></script>
+
 </body>
+
 </html>
