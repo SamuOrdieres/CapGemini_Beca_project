@@ -20,8 +20,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.samuordieres.model.Cliente;
 import com.samuordieres.model.Empleado;
 import com.samuordieres.model.Usuario;
+import com.samuordieres.service.ClienteService;
 import com.samuordieres.service.EmpleadoService;
 import com.samuordieres.service.UsuarioService;
 
@@ -35,6 +37,9 @@ public class AppController {
 
 	@Autowired
 	UsuarioService userService;
+	
+	@Autowired
+	ClienteService clienteService;
 
 	@Autowired
 	MessageSource messageSource;
@@ -47,13 +52,13 @@ public class AppController {
 	/*
 	 * This method will list all existing empleados.
 	 */
-	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public String listEmpleados(ModelMap model) {
-
-		List<Empleado> empleados = service.findAllEmpleados();
-		model.addAttribute("empleados", empleados);
-		return "allemployees";
-	}
+//	@RequestMapping(value = "/list", method = RequestMethod.GET)
+//	public String listEmpleados(ModelMap model) {
+//
+//		List<Empleado> empleados = service.findAllEmpleados();
+//		model.addAttribute("empleados", empleados);
+//		return "allemployees";
+//	}
 
 	/*
 	 * This method will provide the medium to add a new empleado.
@@ -174,18 +179,18 @@ public class AppController {
 		Usuario usuarioTemp = userService.validateUser(usuario);
 		if (null != usuarioTemp) {
 			
-			List<Empleado> empleados = service.findAllEmpleados();
+			List<Cliente> clientes = clienteService.findAllClientes();
 
 			switch (usuarioTemp.getNivel()) {
 
 			case (1):
-				modelAndView = new ModelAndView("viewemployees");
-				modelAndView.addObject("empleados", empleados);
+				modelAndView = new ModelAndView("viewclients");
+				modelAndView.addObject("clientes", clientes);
 				break;
 
 			case (2):
-				modelAndView = new ModelAndView("allemployees");
-				modelAndView.addObject("empleados", empleados);
+				modelAndView = new ModelAndView("allclients");
+				modelAndView.addObject("clientes", clientes);
 				break;
 
 			}
@@ -206,6 +211,17 @@ public class AppController {
 		model.addAttribute("empleado", empleado);
 		model.addAttribute("edit", false);
 		return "registration";
+	}
+	
+	/*
+	 * This method will list all existing empleados.
+	 */
+	@RequestMapping(value = "/list", method = RequestMethod.GET)
+	public String listClientes(ModelMap model) {
+
+		List<Cliente> clientes = clienteService.findAllClientes();
+		model.addAttribute("clientes", clientes);
+		return "allclients";
 	}
 
 }

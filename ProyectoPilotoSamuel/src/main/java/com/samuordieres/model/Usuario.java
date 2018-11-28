@@ -22,7 +22,7 @@ public class Usuario {
     private int id;
  
     @NotEmpty
-    @Column(name = "login", unique=true, nullable = false)
+    @Column(name = "email", unique=true, nullable = false)
     private String login;
     
     @Size(min=3, max=50)
