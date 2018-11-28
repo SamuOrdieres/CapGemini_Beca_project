@@ -184,8 +184,8 @@
 					  <td>${cliente.fechaEntrada}</td>
 					  <td>${cliente.fechaSalida}</td>
 					  <td>${cliente.centroTuristicoId}</td>
-					  <td><a href="<c:url value='/edit-${cliente.dni}-empleado' />">${cliente.dni}</a></td>
-					  <td><a href="<c:url value='/delete-${cliente.dni}-empleado' />">delete</a></td>
+					  <td><a href="<c:url value='/edit-${cliente.dni}-cliente' />">${cliente.dni}</a></td>
+					  <td><a href="<c:url value='/delete-${cliente.dni}-cliente' />">delete</a></td>
                     </tr>
                   </c:forEach>
                   </tbody>

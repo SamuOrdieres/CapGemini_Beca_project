@@ -23,7 +23,7 @@ public class CentroTuristico {
     
     @NotNull
     @Column(name = "habitaciones", nullable = false)
-    private Integer habitaciones;
+    private int habitaciones;
 
 	public int getId() {
 		return id;
@@ -49,11 +49,13 @@ public class CentroTuristico {
 		this.habitaciones = habitaciones;
 	}
 
+
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((habitaciones == null) ? 0 : habitaciones.hashCode());
+		result = prime * result + habitaciones;
 		result = prime * result + id;
 		result = prime * result + ((nombre == null) ? 0 : nombre.hashCode());
 		return result;
@@ -68,10 +70,7 @@ public class CentroTuristico {
 		if (getClass() != obj.getClass())
 			return false;
 		CentroTuristico other = (CentroTuristico) obj;
-		if (habitaciones == null) {
-			if (other.habitaciones != null)
-				return false;
-		} else if (!habitaciones.equals(other.habitaciones))
+		if (habitaciones != other.habitaciones)
 			return false;
 		if (id != other.id)
 			return false;

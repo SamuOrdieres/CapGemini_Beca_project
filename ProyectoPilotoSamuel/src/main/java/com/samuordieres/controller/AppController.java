@@ -20,9 +20,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.samuordieres.model.CentroTuristico;
 import com.samuordieres.model.Cliente;
 import com.samuordieres.model.Empleado;
 import com.samuordieres.model.Usuario;
+import com.samuordieres.service.CentroTuristicoService;
 import com.samuordieres.service.ClienteService;
 import com.samuordieres.service.EmpleadoService;
 import com.samuordieres.service.UsuarioService;
@@ -40,6 +42,9 @@ public class AppController {
 	
 	@Autowired
 	ClienteService clienteService;
+	
+	@Autowired
+	CentroTuristicoService centroTuristicoService;
 
 	@Autowired
 	MessageSource messageSource;
@@ -50,24 +55,20 @@ public class AppController {
 	}
 
 	/*
-	 * This method will list all existing empleados.
-	 */
-//	@RequestMapping(value = "/list", method = RequestMethod.GET)
-//	public String listEmpleados(ModelMap model) {
-//
-//		List<Empleado> empleados = service.findAllEmpleados();
-//		model.addAttribute("empleados", empleados);
-//		return "allemployees";
-//	}
-
-	/*
-	 * This method will provide the medium to add a new empleado.
+	 * This method will provide the medium to add a new cliente.
 	 */
 	@RequestMapping(value = { "/new" }, method = RequestMethod.GET)
-	public String newEmpleado(ModelMap model) {
-		Empleado empleado = new Empleado();
-		model.addAttribute("empleado", empleado);
+	public String newCliente(ModelMap model) {
+		
+		
+		Cliente cliente = new Cliente();
+		
+		model.addAttribute("cliente", cliente);
 		model.addAttribute("edit", false);
+		
+		List<CentroTuristico> centrosTuristicos = centroTuristicoService.findAllCentrosTuristicos();
+
+		model.addAttribute("centrosTuristicos", centrosTuristicos);
 		return "registration";
 	}
 
@@ -76,7 +77,7 @@ public class AppController {
 	 * saving empleado in database. It also validates the user input
 	 */
 	@RequestMapping(value = { "/new" }, method = RequestMethod.POST)
-	public String saveEmpleado(@Valid Empleado empleado, BindingResult result, ModelMap model) {
+	public String saveCliente(@Valid Cliente cliente, BindingResult result, ModelMap model) {
 
 		if (result.hasErrors()) {
 			return "registration";
@@ -92,26 +93,26 @@ public class AppController {
 		 * internationalized messages.
 		 * 
 		 */
-		if (!service.isEmpleadoDniUnique(empleado.getId(), empleado.getDni())) {
-			FieldError dniError = new FieldError("empleado", "dni", messageSource.getMessage("non.unique.dni",
-					new String[] { empleado.getDni() }, Locale.getDefault()));
+		if (!clienteService.isClienteDniUnique(cliente.getId(), cliente.getDni())) {
+			FieldError dniError = new FieldError("cliente", "dni", messageSource.getMessage("non.unique.dni",
+					new String[] { cliente.getDni() }, Locale.getDefault()));
 			result.addError(dniError);
 			return "registration";
 		}
 
-		service.saveEmpleado(empleado);
+		clienteService.saveCliente(cliente);
 
-		model.addAttribute("success", "El empleado " + empleado.getNombre() + " se ha REGISTRADO SATISFACTORIAMENTE");
+		model.addAttribute("success", "El cliente " + cliente.getNombre() + " " + cliente.getPrimerApellido()+ " " + cliente.getSegundoApellido() + " se ha REGISTRADO SATISFACTORIAMENTE");
 		return "success";
 	}
 
 	/*
-	 * This method will provide the medium to update an existing empleado.
+	 * This method will provide the medium to update an existing cliente.
 	 */
-	@RequestMapping(value = { "/edit-{dni}-empleado" }, method = RequestMethod.GET)
-	public String editEmpleado(@PathVariable String dni, ModelMap model) {
-		Empleado empleado = service.findEmpleadoByDni(dni);
-		model.addAttribute("empleado", empleado);
+	@RequestMapping(value = { "/edit-{dni}-cliente" }, method = RequestMethod.GET)
+	public String editCliente(@PathVariable String dni, ModelMap model) {
+		Cliente cliente = clienteService.findClienteByDni(dni);
+		model.addAttribute("cliente", cliente);
 		model.addAttribute("edit", true);
 		return "registration";
 	}
@@ -120,33 +121,33 @@ public class AppController {
 	 * This method will be called on form submission, handling POST request for
 	 * updating empleado in database. It also validates the user input
 	 */
-	@RequestMapping(value = { "/edit-{dni}-empleado" }, method = RequestMethod.POST)
-	public String updateEmpleado(@Valid Empleado empleado, BindingResult result, ModelMap model,
+	@RequestMapping(value = { "/edit-{dni}-cliente" }, method = RequestMethod.POST)
+	public String updateEmpleado(@Valid Cliente cliente, BindingResult result, ModelMap model,
 			@PathVariable String dni) {
 
 		if (result.hasErrors()) {
 			return "registration";
 		}
 
-		if (!service.isEmpleadoDniUnique(empleado.getId(), empleado.getDni())) {
-			FieldError dniError = new FieldError("empleado", "dni", messageSource.getMessage("non.unique.dni",
-					new String[] { empleado.getDni() }, Locale.getDefault()));
+		if (!clienteService.isClienteDniUnique(cliente.getId(), cliente.getDni())) {
+			FieldError dniError = new FieldError("cliente", "dni", messageSource.getMessage("non.unique.dni",
+					new String[] { cliente.getDni() }, Locale.getDefault()));
 			result.addError(dniError);
 			return "registration";
 		}
 
-		service.updateEmpleado(empleado);
+		clienteService.updateCliente(cliente);
 
-		model.addAttribute("success", "Empleado " + empleado.getNombre() + " updated successfully");
+		model.addAttribute("success", "El cliente " + cliente.getNombre() + " se ha actualizado satisfactoriamente.");
 		return "success";
 	}
 
 	/*
-	 * This method will delete an empleado by it's SSN value.
+	 * This method will delete an cliente by it's DNI value.
 	 */
-	@RequestMapping(value = { "/delete-{dni}-empleado" }, method = RequestMethod.GET)
-	public String deleteEmpleado(@PathVariable String dni) {
-		service.deleteEmpleadoByDni(dni);
+	@RequestMapping(value = { "/delete-{dni}-cliente" }, method = RequestMethod.GET)
+	public String deleteCliente(@PathVariable String dni) {
+		clienteService.deleteClienteByDni(dni);
 		return "redirect:/list";
 	}
 
@@ -173,10 +174,11 @@ public class AppController {
 	}
 
 	@RequestMapping(value = "/loginProcess", method = RequestMethod.POST)
-	public ModelAndView loginProcess(HttpServletRequest request, HttpServletResponse response,
-			@ModelAttribute("usuario") Usuario usuario) {
+	public ModelAndView loginProcess(HttpServletRequest request, HttpServletResponse response, @ModelAttribute("usuario") Usuario usuario) {
+		
 		ModelAndView modelAndView = null;
 		Usuario usuarioTemp = userService.validateUser(usuario);
+		
 		if (null != usuarioTemp) {
 			
 			List<Cliente> clientes = clienteService.findAllClientes();
