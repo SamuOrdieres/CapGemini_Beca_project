@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.samuordieres.model.CentroTuristico;
 
-@Repository("centroTuristicoDAO")
+@Repository("centroTuristicoDao")
 public class CentroTuristicoDAOImpl extends AbstractDAO<Integer, CentroTuristico> implements CentroTuristicoDAO{
 
 	@Override

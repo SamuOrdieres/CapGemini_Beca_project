@@ -84,16 +84,8 @@
 										<form:select path="centroTuristicoId" id="centroTuristicoId" name="centroTuristicoId" class="form-control" placeholder="Centro Turistico" required="required" autofocus="autofocus">
 										<label for="centroTuristicoId">Centro Turistico: </label>
 										<form:errors path="centroTuristicoId" cssClass="error" />
-											<c:forEach items="${centrosTuristicos}" var="centroTuristico">
-											<option value='<c:out value='${centroTuristico.id}'></c:out>'>
-												<c:out value='${centroTuristico.nombre}'></c:out>
-											</option>									
-											</c:forEach>
-
-<!-- 												<option value='1'>Hotel Rural el Cuartamenteru</option> -->
-<!-- 												<option value='2'>Hotel Pugide</option> -->
-<!-- 												<option value='3'>Hotel El Texeu</option> -->
-
+										    <form:option value="">-- Selecciona el Centro Turistico --</form:option>
+											<form:options items="${centrosTuristicos}" itemLabel="nombre" itemValue="id"/>
 										</form:select>
 									</div>
 								</div>
@@ -103,14 +95,14 @@
 							<div class="form-row">
 								<div class="col-md-6">
 									<div class="form-label-group">
-										<form:input path="fechaEntrada" id="fechaEntrada" class="form-control" required="required" autofocus="autofocus" />
+										<form:input path="fechaEntrada" id="fechaEntrada" class="form-control" required="required" autofocus="autofocus"/>
 										<label for="fechaEntrada">Fecha de entrada: </label>
 										<form:errors path="fechaEntrada" cssClass="error" />
 									</div>
 								</div>
 								<div class="col-md-6">
 									<div class="form-label-group">
-										<form:input path="fechaSalida" id="fechaSalida" class="form-control" required="required" autofocus="autofocus" />
+										<form:input path="fechaSalida" id="fechaSalida" class="form-control" required="required" autofocus="autofocus"/>
 										<label for="fechaSalida">Fecha de salida: </label>
 										<form:errors path="fechaSalida" cssClass="error" />
 									</div>

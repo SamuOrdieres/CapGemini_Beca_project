@@ -67,8 +67,8 @@ public class AppController {
 		model.addAttribute("edit", false);
 		
 		List<CentroTuristico> centrosTuristicos = centroTuristicoService.findAllCentrosTuristicos();
-
 		model.addAttribute("centrosTuristicos", centrosTuristicos);
+		
 		return "registration";
 	}
 
@@ -112,7 +112,14 @@ public class AppController {
 	@RequestMapping(value = { "/edit-{dni}-cliente" }, method = RequestMethod.GET)
 	public String editCliente(@PathVariable String dni, ModelMap model) {
 		Cliente cliente = clienteService.findClienteByDni(dni);
+		CentroTuristico centroTuristico = centroTuristicoService.findById(cliente.getCentroTuristicoId());
+		
 		model.addAttribute("cliente", cliente);
+		model.addAttribute("centroTuristico", centroTuristico);
+		
+		List<CentroTuristico> centrosTuristicos = centroTuristicoService.findAllCentrosTuristicos();
+		model.addAttribute("centrosTuristicos", centrosTuristicos);
+		
 		model.addAttribute("edit", true);
 		return "registration";
 	}
