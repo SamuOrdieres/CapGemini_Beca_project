@@ -158,6 +158,7 @@
                       <th>Fecha Entrada</th>
                       <th>Fecha Salida</th>
                       <th>Centro Turistico</th>
+                      <th>Email</th>
                       <th>DNI / NIE</th>
                       <th>Eliminar</th>
                       
@@ -171,6 +172,7 @@
                       <th>Fecha Entrada</th>
                       <th>Fecha Salida</th>
                       <th>Centro Turistico</th>
+                      <th>Email</th>
                       <th>DNI / NIE</th>
                       <th>Eliminar</th>
                     </tr>
@@ -184,6 +186,7 @@
 					  <td>${cliente.fechaEntrada}</td>
 					  <td>${cliente.fechaSalida}</td>
 					  <td>${cliente.centroTuristicoId}</td>
+					  <td>${cliente.email.email}</td>
 					  <td><a href="<c:url value='/edit-${cliente.dni}-cliente' />">${cliente.dni}</a></td>
 					  <td><a href="<c:url value='/delete-${cliente.dni}-cliente' />">delete</a></td>
                     </tr>

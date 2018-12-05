@@ -81,6 +81,17 @@
 							<div class="form-row">
 								<div class="col-md">
 									<div class="form-label-group">
+										<form:input path="email.email" id="email" class="form-control" placeholder="Email" required="required" autofocus="autofocus"/>
+										<label for="email">Email: </label>
+										<form:errors path="email.email" cssClass="error" />
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="form-row">
+								<div class="col-md">
+									<div class="form-label-group">
 										<form:select path="centroTuristicoId" id="centroTuristicoId" name="centroTuristicoId" class="form-control" placeholder="Centro Turistico" required="required" autofocus="autofocus">
 										<label for="centroTuristicoId">Centro Turistico: </label>
 										<form:errors path="centroTuristicoId" cssClass="error" />
