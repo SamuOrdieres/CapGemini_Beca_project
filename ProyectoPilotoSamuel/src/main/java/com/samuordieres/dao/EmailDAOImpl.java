@@ -37,4 +37,11 @@ public class EmailDAOImpl extends AbstractDAO<Integer, Email> implements EmailDA
         return (Email) criteria.uniqueResult();
 	} 
 	
+	@Override
+	public Email findEmailByEmail(String emailStr) {
+		Criteria criteria = createEntityCriteria();
+        criteria.add(Restrictions.eq("emails", emailStr));
+        return (Email) criteria.uniqueResult();
+	} 
+	
 }

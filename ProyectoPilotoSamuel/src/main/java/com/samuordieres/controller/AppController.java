@@ -22,10 +22,12 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.samuordieres.model.CentroTuristico;
 import com.samuordieres.model.Cliente;
+import com.samuordieres.model.Email;
 import com.samuordieres.model.Empleado;
 import com.samuordieres.model.Usuario;
 import com.samuordieres.service.CentroTuristicoService;
 import com.samuordieres.service.ClienteService;
+import com.samuordieres.service.EmailService;
 import com.samuordieres.service.EmpleadoService;
 import com.samuordieres.service.UsuarioService;
 
@@ -45,6 +47,9 @@ public class AppController {
 	
 	@Autowired
 	CentroTuristicoService centroTuristicoService;
+	
+	@Autowired
+	EmailService emailService;
 
 	@Autowired
 	MessageSource messageSource;
@@ -79,6 +84,8 @@ public class AppController {
 	@RequestMapping(value = { "/new" }, method = RequestMethod.POST)
 	public String saveCliente(@Valid Cliente cliente, BindingResult result, ModelMap model) {
 
+		Email email = new Email();
+		
 		if (result.hasErrors()) {
 			return "registration";
 		}
@@ -100,7 +107,12 @@ public class AppController {
 			return "registration";
 		}
 
-		clienteService.saveCliente(cliente);
+		
+		email.setCliente(cliente);
+		email.setEmail((cliente.getEmail().getEmail()));
+		cliente.setEmail(email);
+		
+		emailService.saveEmail(email);
 
 		model.addAttribute("success", "El cliente " + cliente.getNombre() + " " + cliente.getPrimerApellido()+ " " + cliente.getSegundoApellido() + " se ha REGISTRADO SATISFACTORIAMENTE");
 		return "success";
@@ -131,6 +143,8 @@ public class AppController {
 	@RequestMapping(value = { "/edit-{dni}-cliente" }, method = RequestMethod.POST)
 	public String updateEmpleado(@Valid Cliente cliente, BindingResult result, ModelMap model,
 			@PathVariable String dni) {
+		
+		Email email = new Email();
 
 		if (result.hasErrors()) {
 			return "registration";
@@ -143,7 +157,14 @@ public class AppController {
 			return "registration";
 		}
 
-		clienteService.updateCliente(cliente);
+		
+		email.setCliente(cliente);
+		email.setEmail((cliente.getEmail().getEmail()));
+		cliente.setEmail(email);
+		
+		emailService.updateEmail(email);
+		
+//		clienteService.updateCliente(cliente);
 
 		model.addAttribute("success", "El cliente " + cliente.getNombre() + " se ha actualizado satisfactoriamente.");
 		return "success";

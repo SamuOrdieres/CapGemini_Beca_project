@@ -48,12 +48,17 @@ public class EmailServiceImpl implements EmailService {
 	public Email findEmailByClienteId(int clienteId) {
 		return dao.findEmailByClienteId(clienteId);
 	}
+	
+	@Override
+	public Email findEmailByEmail(String emailStr) {
+		return dao.findEmailByEmail(emailStr);
+	}
 
-//	@Override
-//	public boolean isEmailUnique(Integer id, String emailStr) {
-//		Email email = findEmailByEmail(emailStr);
-//        return ( email == null || ((id != null) && (email.getId() == id)));
-//        
-//	}
+	@Override
+	public boolean isEmailUnique(Integer id, String emailStr) {
+		Email email = findEmailByEmail(emailStr);
+        return ( email == null || ((id != null) && (email.getId() == id)));
+        
+	}
 
 }

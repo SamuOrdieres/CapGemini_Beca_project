@@ -15,7 +15,9 @@ public interface EmailService {
     List<Email> findAllEmails(); 
      
     Email findEmailByClienteId(int clienteId);
+    
+    Email findEmailByEmail(String emailStr);
  
-//    boolean isEmailUnique(Integer id, String emailStr);
+    boolean isEmailUnique(Integer id, String emailStr);
 
 }
