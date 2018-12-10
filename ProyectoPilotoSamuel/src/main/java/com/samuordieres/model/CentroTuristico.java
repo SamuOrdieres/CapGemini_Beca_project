@@ -1,10 +1,14 @@
 package com.samuordieres.model;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -24,6 +28,9 @@ public class CentroTuristico {
     @NotNull
     @Column(name = "habitaciones", nullable = false)
     private int habitaciones;
+    
+    @OneToMany(mappedBy = "centroTuristico", cascade = CascadeType.ALL)
+    private List<Reservas> reservas;
 
 	public int getId() {
 		return id;
@@ -49,7 +56,17 @@ public class CentroTuristico {
 		this.habitaciones = habitaciones;
 	}
 
+	public List<Reservas> getReservas() {
+		return reservas;
+	}
 
+	public void setReservas(List<Reservas> reservas) {
+		this.reservas = reservas;
+	}
+
+	public void setHabitaciones(int habitaciones) {
+		this.habitaciones = habitaciones;
+	}
 
 	@Override
 	public int hashCode() {
@@ -58,6 +75,7 @@ public class CentroTuristico {
 		result = prime * result + habitaciones;
 		result = prime * result + id;
 		result = prime * result + ((nombre == null) ? 0 : nombre.hashCode());
+		result = prime * result + ((reservas == null) ? 0 : reservas.hashCode());
 		return result;
 	}
 
@@ -79,14 +97,20 @@ public class CentroTuristico {
 				return false;
 		} else if (!nombre.equals(other.nombre))
 			return false;
+		if (reservas == null) {
+			if (other.reservas != null)
+				return false;
+		} else if (!reservas.equals(other.reservas))
+			return false;
 		return true;
 	}
 
 	@Override
 	public String toString() {
-		return "CentroTuristico [id=" + id + ", nombre=" + nombre + ", habitaciones=" + habitaciones + "]";
+		return "CentroTuristico [id=" + id + ", nombre=" + nombre + ", habitaciones=" + habitaciones + ", reservas="
+				+ reservas + "]";
 	}
-    
-    
+
+	
 
 }

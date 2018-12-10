@@ -41,10 +41,9 @@ public class ClienteServiceImpl implements ClienteService {
             entity.setNombre(cliente.getNombre());
             entity.setPrimerApellido(cliente.getPrimerApellido());
             entity.setSegundoApellido(cliente.getSegundoApellido());
-            entity.setFechaEntrada(cliente.getFechaEntrada());
-            entity.setFechaSalida(cliente.getFechaSalida());
-            entity.setCentroTuristicoId(cliente.getCentroTuristicoId());
             entity.setDni(cliente.getDni());
+            entity.setEmail(cliente.getEmail());
+            entity.setReservas(cliente.getReservas());
         }
 		
 	}

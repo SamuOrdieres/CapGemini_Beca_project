@@ -126,7 +126,7 @@
         <li class="nav-item active">
           <a class="nav-link" href="tables.html">
             <i class="fas fa-fw fa-table"></i>
-            <span>Reservas</span></a>
+            <span>Clientes</span></a>
         </li>
       </ul>
 
@@ -139,13 +139,13 @@
             <li class="breadcrumb-item">
               <a href="#">Dashboard</a>
             </li>
-            <li class="breadcrumb-item active">Reservas</li>
+            <li class="breadcrumb-item active">Clientes</li>
           </ol>
 
           <!-- DataTables Example -->
           <div class="card mb-3">
             <div class="card-header">
-              <i class="fas fa-table"></i> Reservas
+              <i class="fas fa-table"></i> Clientes
               </div>
             <div class="card-body">
               <div class="table-responsive">
@@ -155,9 +155,9 @@
                       <th>Nombre</th>
                       <th>Primer Apellido</th>
                       <th>Segundo Apellido</th>
-                      <th>Fecha Entrada</th>
-                      <th>Fecha Salida</th>
-                      <th>Centro Turistico</th>
+<!--                       <th>Fecha Entrada</th> -->
+<!--                       <th>Fecha Salida</th> -->
+<!--                       <th>Centro Turistico</th> -->
                       <th>Email</th>
                       <th>DNI / NIE</th>
                       <th>Eliminar</th>
@@ -169,9 +169,9 @@
                       <th>Nombre</th>
                       <th>Primer Apellido</th>
                       <th>Segundo Apellido</th>
-                      <th>Fecha Entrada</th>
-                      <th>Fecha Salida</th>
-                      <th>Centro Turistico</th>
+<!--                       <th>Fecha Entrada</th> -->
+<!--                       <th>Fecha Salida</th> -->
+<!--                       <th>Centro Turistico</th> -->
                       <th>Email</th>
                       <th>DNI / NIE</th>
                       <th>Eliminar</th>
@@ -183,9 +183,9 @@
                       <td>${cliente.nombre}</td>
                       <td>${cliente.primerApellido}</td>
                       <td>${cliente.segundoApellido}</td>
-					  <td>${cliente.fechaEntrada}</td>
-					  <td>${cliente.fechaSalida}</td>
-					  <td>${cliente.centroTuristicoId}</td>
+<%-- 					  <td>${cliente.fechaEntrada}</td> --%>
+<%-- 					  <td>${cliente.fechaSalida}</td> --%>
+<%-- 					  <td>${cliente.centroTuristicoId}</td> --%>
 					  <td>${cliente.email.email}</td>
 					  <td><a href="<c:url value='/edit-${cliente.dni}-cliente' />">${cliente.dni}</a></td>
 					  <td><a href="<c:url value='/delete-${cliente.dni}-cliente' />">delete</a></td>
@@ -201,7 +201,7 @@
           </div>
 
           <p class="small text-center text-muted my-5">
-            <em>Más reservas el próximo año...</em>
+            <em>Más clientes el próximo año...</em>
           </p>
 
         </div>

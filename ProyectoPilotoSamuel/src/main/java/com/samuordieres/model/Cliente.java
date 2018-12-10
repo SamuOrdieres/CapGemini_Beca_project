@@ -1,5 +1,7 @@
 package com.samuordieres.model;
 
+import java.util.List;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -7,15 +9,12 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import org.hibernate.annotations.Type;
 import org.hibernate.validator.constraints.NotEmpty;
-import org.joda.time.LocalDate;
-import org.springframework.format.annotation.DateTimeFormat;
 
 
 @Entity
@@ -37,22 +36,6 @@ public class Cliente {
     @Size(min=3, max=50)
     @Column(name = "segundo_apellido", nullable = false)
     private String segundoApellido;
-    
-    @NotNull
-    @DateTimeFormat(pattern="dd/MM/yyyy") 
-    @Column(name = "fecha_entrada", nullable = false)
-    @Type(type="org.jadira.usertype.dateandtime.joda.PersistentLocalDate")
-    private LocalDate fechaEntrada;
-    
-    @NotNull
-    @DateTimeFormat(pattern="dd/MM/yyyy") 
-    @Column(name = "fecha_salida", nullable = false)
-    @Type(type="org.jadira.usertype.dateandtime.joda.PersistentLocalDate")
-    private LocalDate fechaSalida;
- 
-    @NotNull
-    @Column(name = "centros_turisticos_id", nullable = false)
-    private Integer centroTuristicoId;
      
     @NotEmpty
     @Column(name = "dni", unique=true, nullable = false)
@@ -60,6 +43,10 @@ public class Cliente {
 
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy="cliente")
     private Email email;
+    
+    @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
+//    @JoinTable(name="reservas", joinColumns=@JoinColumn(name="clientes_id"), inverseJoinColumns=@JoinColumn(name="centros_turisticos_id"))
+    private List<Reservas> reservas;
  
     public Email getEmail() {
 		return email;
@@ -102,30 +89,7 @@ public class Cliente {
 		this.segundoApellido = segundoApellido;
 	}
 
-	public LocalDate getFechaEntrada() {
-		return fechaEntrada;
-	}
-
-	public void setFechaEntrada(LocalDate fechaEntrada) {
-		this.fechaEntrada = fechaEntrada;
-	}
-
-	public LocalDate getFechaSalida() {
-		return fechaSalida;
-	}
-
-	public void setFechaSalida(LocalDate fechaSalida) {
-		this.fechaSalida = fechaSalida;
-	}
-
-	public Integer getCentroTuristicoId() {
-		return centroTuristicoId;
-	}
-
-	public void setCentroTuristicoId(Integer centroTuristicoId) {
-		this.centroTuristicoId = centroTuristicoId;
-	}
-
+	
 	public String getDni() {
         return dni;
     }
@@ -133,20 +97,25 @@ public class Cliente {
     public void setDni(String dni) {
         this.dni = dni;
     }
- 
-    
+
+	public List<Reservas> getReservas() {
+		return reservas;
+	}
+
+	public void setReservas(List<Reservas> reservas) {
+		this.reservas = reservas;
+	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((centroTuristicoId == null) ? 0 : centroTuristicoId.hashCode());
 		result = prime * result + ((dni == null) ? 0 : dni.hashCode());
-		result = prime * result + ((fechaEntrada == null) ? 0 : fechaEntrada.hashCode());
-		result = prime * result + ((fechaSalida == null) ? 0 : fechaSalida.hashCode());
+		result = prime * result + ((email == null) ? 0 : email.hashCode());
 		result = prime * result + id;
 		result = prime * result + ((nombre == null) ? 0 : nombre.hashCode());
 		result = prime * result + ((primerApellido == null) ? 0 : primerApellido.hashCode());
+		result = prime * result + ((reservas == null) ? 0 : reservas.hashCode());
 		result = prime * result + ((segundoApellido == null) ? 0 : segundoApellido.hashCode());
 		return result;
 	}
@@ -160,25 +129,15 @@ public class Cliente {
 		if (getClass() != obj.getClass())
 			return false;
 		Cliente other = (Cliente) obj;
-		if (centroTuristicoId == null) {
-			if (other.centroTuristicoId != null)
-				return false;
-		} else if (!centroTuristicoId.equals(other.centroTuristicoId))
-			return false;
 		if (dni == null) {
 			if (other.dni != null)
 				return false;
 		} else if (!dni.equals(other.dni))
 			return false;
-		if (fechaEntrada == null) {
-			if (other.fechaEntrada != null)
+		if (email == null) {
+			if (other.email != null)
 				return false;
-		} else if (!fechaEntrada.equals(other.fechaEntrada))
-			return false;
-		if (fechaSalida == null) {
-			if (other.fechaSalida != null)
-				return false;
-		} else if (!fechaSalida.equals(other.fechaSalida))
+		} else if (!email.equals(other.email))
 			return false;
 		if (id != other.id)
 			return false;
@@ -192,6 +151,11 @@ public class Cliente {
 				return false;
 		} else if (!primerApellido.equals(other.primerApellido))
 			return false;
+		if (reservas == null) {
+			if (other.reservas != null)
+				return false;
+		} else if (!reservas.equals(other.reservas))
+			return false;
 		if (segundoApellido == null) {
 			if (other.segundoApellido != null)
 				return false;
@@ -203,12 +167,8 @@ public class Cliente {
 	@Override
 	public String toString() {
 		return "Cliente [id=" + id + ", nombre=" + nombre + ", primerApellido=" + primerApellido + ", segundoApellido="
-				+ segundoApellido + ", fechaEntrada=" + fechaEntrada + ", fechaSalida=" + fechaSalida
-				+ ", centroTuristicoId=" + centroTuristicoId + ", dni=" + dni + "]";
+				+ segundoApellido + ", dni=" + dni + ", email=" + email + ", reservas=" + reservas + "]";
 	}
- 
-    
-    
 
 }
 
