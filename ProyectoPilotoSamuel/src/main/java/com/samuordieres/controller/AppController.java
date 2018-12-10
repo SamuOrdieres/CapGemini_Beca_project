@@ -1,8 +1,10 @@
 package com.samuordieres.controller;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
@@ -30,6 +32,9 @@ import com.samuordieres.service.ClienteService;
 import com.samuordieres.service.EmailService;
 import com.samuordieres.service.EmpleadoService;
 import com.samuordieres.service.UsuarioService;
+
+import com.google.gson.Gson;
+
 
 @Controller
 @RequestMapping("/")
@@ -252,5 +257,52 @@ public class AppController {
 		model.addAttribute("clientes", clientes);
 		return "allclients";
 	}
+	
+	@RequestMapping(value = "/reservas_centroturistico", method = RequestMethod.GET)
+	public String reservasCentroTuristico(ModelMap model) {
+
+		List<Cliente> clientes = clienteService.findAllClientes();
+		model.addAttribute("clientes", clientes);
+		
+		List<CentroTuristico> centrosTuristicos = centroTuristicoService.findAllCentrosTuristicos();
+		model.addAttribute("centrosTuristicos", centrosTuristicos);
+		
+		return "reservas_centroturistico";
+	}
+	
+	
+	
+	/*
+	 * AJAXMANAGER
+	 */
+	
+	@RequestMapping(value = "/reservas_centroturistico", method = RequestMethod.POST)
+
+	
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+	
+		response.setContentType("Content-Type: application/json; charset=UTF-8");
+
+		// Biblioteca o libreria que maneja JSON y mapea
+		// a una clase de Java
+		Gson gson;
+		gson = new Gson();
+
+		CentroTuristico centro = gson.fromJson(request.getParameter("jsondata"), CentroTuristico.class);
+
+		Modelo m = new Modelo();
+		List<Cliente> clientes = new ArrayList<>();
+
+		clientes = m.getClientesCentro(centro);
+
+		PrintWriter out = response.getWriter();
+
+		out.print(gson.toJson(clientes));
+
+	}
+	
+	
+
 
 }
