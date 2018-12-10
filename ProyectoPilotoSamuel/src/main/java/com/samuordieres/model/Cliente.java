@@ -58,7 +58,7 @@ public class Cliente {
     @Column(name = "dni", unique=true, nullable = false)
     private String dni;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy="cliente")
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy="cliente")
     private Email email;
  
     public Email getEmail() {

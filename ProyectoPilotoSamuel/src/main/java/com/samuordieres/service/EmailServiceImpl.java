@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.samuordieres.dao.EmailDAO;
+import com.samuordieres.model.Cliente;
 import com.samuordieres.model.Email;
 
 @Service("emailService")
@@ -27,12 +28,28 @@ public class EmailServiceImpl implements EmailService {
 	}
 
 	@Override
-	public void updateEmail(Email email) {
-		Email entity = dao.findById(email.getId());
+	public void updateEmail(Cliente cliente) {
+		Email entity = dao.findEmailByClienteId(cliente.getId());
 		if (entity != null) {
-			entity.setEmail(email.getEmail());
+			entity.setEmail(cliente.getEmail().getEmail());
+			entity.setCliente(cliente);
+			
+		} else {
+			System.out.println("*** Entity es null ***");
 		}
+	
 	}
+	
+//	@Override
+//	public void updateEmailByCliente(Cliente cliente) {
+//		Email entity = dao.findEmailByClienteId(cliente.getId());
+//		if (entity != null) {
+//			entity.setEmail(cliente.getEmail().getEmail());
+//		} else {
+//			System.out.println("*** Entity es null ***");
+//		}
+//	
+//	}
 
 //	@Override
 //	public void deleteCentroTuristicoByNombre(String nombre) {

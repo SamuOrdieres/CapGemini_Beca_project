@@ -126,7 +126,7 @@
         <li class="nav-item active">
           <a class="nav-link" href="tables.html">
             <i class="fas fa-fw fa-table"></i>
-            <span>Bookings</span></a>
+            <span>Reservas</span></a>
         </li>
       </ul>
 
@@ -139,7 +139,7 @@
             <li class="breadcrumb-item">
               <a href="#">Dashboard</a>
             </li>
-            <li class="breadcrumb-item active">Bookings</li>
+            <li class="breadcrumb-item active">Reservas</li>
           </ol>
 
           <!-- DataTables Example -->
@@ -201,7 +201,7 @@
           </div>
 
           <p class="small text-center text-muted my-5">
-            <em>More bookings next year...</em>
+            <em>Más reservas el próximo año...</em>
           </p>
 
         </div>

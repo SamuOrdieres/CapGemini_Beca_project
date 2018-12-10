@@ -31,10 +31,11 @@ public class EmailDAOImpl extends AbstractDAO<Integer, Email> implements EmailDA
 	}
 
 	@Override
-	public Email findEmailByClienteId(int clienteId) {
+	public Email findEmailByClienteId(Integer clientes_id) {
 		Criteria criteria = createEntityCriteria();
-        criteria.add(Restrictions.eq("clientes_id", clienteId));
+        criteria.add(Restrictions.eq("cliente.id", clientes_id));
         return (Email) criteria.uniqueResult();
+        
 	} 
 	
 	@Override

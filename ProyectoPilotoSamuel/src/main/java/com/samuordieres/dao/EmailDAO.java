@@ -12,7 +12,7 @@ public interface EmailDAO {
 
 	List<Email> findAllEmails();
 
-	Email findEmailByClienteId(int clienteId);
+	Email findEmailByClienteId(Integer clientes_id);
 	
 	Email findEmailByEmail(String emailStr);
 }

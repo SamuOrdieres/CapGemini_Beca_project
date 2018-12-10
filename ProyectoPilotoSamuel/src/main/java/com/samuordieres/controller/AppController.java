@@ -121,9 +121,9 @@ public class AppController {
 	/*
 	 * This method will provide the medium to update an existing cliente.
 	 */
-	@RequestMapping(value = { "/edit-{dni}-cliente" }, method = RequestMethod.GET)
-	public String editCliente(@PathVariable String dni, ModelMap model) {
-		Cliente cliente = clienteService.findClienteByDni(dni);
+	@RequestMapping(value = { "/edit-{dniCliente}-cliente" }, method = RequestMethod.GET)
+	public String editCliente(@PathVariable String dniCliente, ModelMap model) {
+		Cliente cliente = clienteService.findClienteByDni(dniCliente);
 		CentroTuristico centroTuristico = centroTuristicoService.findById(cliente.getCentroTuristicoId());
 		
 		model.addAttribute("cliente", cliente);
@@ -140,9 +140,9 @@ public class AppController {
 	 * This method will be called on form submission, handling POST request for
 	 * updating empleado in database. It also validates the user input
 	 */
-	@RequestMapping(value = { "/edit-{dni}-cliente" }, method = RequestMethod.POST)
+	@RequestMapping(value = { "/edit-{dniCliente}-cliente" }, method = RequestMethod.POST)
 	public String updateEmpleado(@Valid Cliente cliente, BindingResult result, ModelMap model,
-			@PathVariable String dni) {
+			@PathVariable String dniCliente) {
 		
 		Email email = new Email();
 
@@ -151,20 +151,19 @@ public class AppController {
 		}
 
 		if (!clienteService.isClienteDniUnique(cliente.getId(), cliente.getDni())) {
-			FieldError dniError = new FieldError("cliente", "dni", messageSource.getMessage("non.unique.dni",
+			FieldError dniError = new FieldError("cliente", "dniCliente", messageSource.getMessage("non.unique.dni",
 					new String[] { cliente.getDni() }, Locale.getDefault()));
 			result.addError(dniError);
 			return "registration";
 		}
 
-		
+		email.setId(cliente.getEmail().getId());
+		email.setEmail((cliente.getEmail().getEmail()));		
 		email.setCliente(cliente);
-		email.setEmail((cliente.getEmail().getEmail()));
 		cliente.setEmail(email);
-		
-		emailService.updateEmail(email);
-		
-//		clienteService.updateCliente(cliente);
+
+		emailService.updateEmail(cliente);
+		clienteService.updateCliente(cliente);
 
 		model.addAttribute("success", "El cliente " + cliente.getNombre() + " se ha actualizado satisfactoriamente.");
 		return "success";

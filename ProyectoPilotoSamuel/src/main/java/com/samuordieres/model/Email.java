@@ -25,7 +25,7 @@ public class Email {
     private String email;
     
     
-    @OneToOne(fetch = FetchType.LAZY, optional = false)
+    @OneToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name="clientes_id")
     @MapsId
     private Cliente cliente;
