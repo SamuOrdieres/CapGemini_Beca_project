@@ -2,6 +2,7 @@ package com.samuordieres.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -22,11 +23,11 @@ public class Reserva {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 	
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="clientes_id")
 	private Cliente cliente;
 	
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="centros_turisticos_id")
 	private CentroTuristico centroTuristico;
 	
@@ -132,7 +133,7 @@ public class Reserva {
 
 	@Override
 	public String toString() {
-		return "Reservas [id=" + id + ", cliente=" + cliente + ", centroTuristico=" + centroTuristico
+		return "Reservas [id=" + id + ", cliente=" + cliente.getDni() + " - " + cliente.getFullName() + ", centroTuristico=" + centroTuristico.getNombre()
 				+ ", fechaEntrada=" + fechaEntrada + ", fechaSalida=" + fechaSalida + "]";
 	}
 	

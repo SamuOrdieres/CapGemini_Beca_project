@@ -44,7 +44,7 @@ public class Cliente {
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy="cliente")
     private Email email;
     
-    @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "cliente", cascade = CascadeType.ALL)
 //    @JoinTable(name="reservas", joinColumns=@JoinColumn(name="clientes_id"), inverseJoinColumns=@JoinColumn(name="centros_turisticos_id"))
     private List<Reserva> reservas;
  
@@ -104,6 +104,18 @@ public class Cliente {
 
 	public void setReservas(List<Reserva> reservas) {
 		this.reservas = reservas;
+	}
+	
+	public String getFullName() {
+		String fullName = nombre + " " + primerApellido + " " + segundoApellido;
+		
+		return fullName;
+	}
+	
+	public String getFullNameDni() {
+		String fullNameDni = nombre + " " + primerApellido + " " + segundoApellido + " - " + dni;
+		
+		return fullNameDni;
 	}
 
 	@Override

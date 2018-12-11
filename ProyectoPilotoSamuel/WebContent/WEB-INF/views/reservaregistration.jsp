@@ -62,8 +62,8 @@
 										<form:select path="cliente.id" id="clienteId" name="clienteId" class="form-control" placeholder="Cliente" required="required" autofocus="autofocus">
 										<label for="clienteId">Cliente: </label>
 										<form:errors path="cliente.id" cssClass="error" />
-										    <form:option value="-1">-- Selecciona el Centro Turistico --</form:option>
-											<form:options items="${clientes}" itemLabel="dni" itemValue="id"/>
+										    <form:option value="-1">-- Selecciona el Cliente --</form:option>
+											<form:options items="${clientes}" itemLabel="fullNameDni" itemValue="id"/>
 										</form:select>
 									</div>
 								</div>
