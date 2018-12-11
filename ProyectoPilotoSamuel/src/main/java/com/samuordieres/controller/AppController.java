@@ -24,11 +24,13 @@ import com.samuordieres.model.CentroTuristico;
 import com.samuordieres.model.Cliente;
 import com.samuordieres.model.Email;
 import com.samuordieres.model.Empleado;
+import com.samuordieres.model.Reserva;
 import com.samuordieres.model.Usuario;
 import com.samuordieres.service.CentroTuristicoService;
 import com.samuordieres.service.ClienteService;
 import com.samuordieres.service.EmailService;
 import com.samuordieres.service.EmpleadoService;
+import com.samuordieres.service.ReservaService;
 import com.samuordieres.service.UsuarioService;
 
 @Controller
@@ -46,21 +48,34 @@ public class AppController {
 	ClienteService clienteService;
 	
 	@Autowired
+	EmailService emailService;
+	
+	@Autowired
 	CentroTuristicoService centroTuristicoService;
 	
 	@Autowired
-	EmailService emailService;
+	ReservaService reservaService;
 
 	@Autowired
 	MessageSource messageSource;
 
+	
+	
+	/*
+	 * INICIO
+	 */
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String inicio() {
 		return "home";
 	}
 
+	
+	
+	//  --- A PARTIR DE AQUÍ EMPIEZAN LOS METODOS DE CLIENTE ---
+
+	
 	/*
-	 * This method will provide the medium to add a new cliente.
+	 * This method will provide the MEDIUM TO ADD a NEW CLIENTE.
 	 */
 	@RequestMapping(value = { "/new" }, method = RequestMethod.GET)
 	public String newCliente(ModelMap model) {
@@ -77,9 +92,11 @@ public class AppController {
 		return "registration";
 	}
 
+	
+	
 	/*
-	 * This method will be called on form submission, handling POST request for
-	 * saving empleado in database. It also validates the user input
+	 * This method will be called ON FORM SUBMISSION, handling POST request for
+	 * SAVING CLIENTE IN DDBB. It also VALIDATES the CLIENTE INPUT.
 	 */
 	@RequestMapping(value = { "/new" }, method = RequestMethod.POST)
 	public String saveCliente(@Valid Cliente cliente, BindingResult result, ModelMap model) {
@@ -93,9 +110,9 @@ public class AppController {
 		/*
 		 * Preferred way to achieve uniqueness of field [dni] should be implementing
 		 * custom @Unique annotation and applying it on field [dni] of Model class
-		 * [Empleado].
+		 * [Cliente].
 		 * 
-		 * Below mentioned peace of code [if block] is to demonstrate that you can fill
+		 * Below [if block] is to demonstrate that you can fill
 		 * custom errors outside the validation framework as well while still using
 		 * internationalized messages.
 		 * 
@@ -117,9 +134,11 @@ public class AppController {
 		model.addAttribute("success", "El cliente " + cliente.getNombre() + " " + cliente.getPrimerApellido()+ " " + cliente.getSegundoApellido() + " se ha REGISTRADO SATISFACTORIAMENTE");
 		return "success";
 	}
+	
+	
 
 	/*
-	 * This method will provide the medium to update an existing cliente.
+	 * This method will provide the MEDIUM TO UPDATE an EXISTING CLIENTE.
 	 */
 	@RequestMapping(value = { "/edit-{dniCliente}-cliente" }, method = RequestMethod.GET)
 	public String editCliente(@PathVariable String dniCliente, ModelMap model) {
@@ -135,10 +154,12 @@ public class AppController {
 		model.addAttribute("edit", true);
 		return "registration";
 	}
+	
+	
 
 	/*
-	 * This method will be called on form submission, handling POST request for
-	 * updating empleado in database. It also validates the user input
+	 * This method will be CALLED ON FORM SUBMISSION, handling POST request for
+	 * UPDATING CLIENTE in DDBB. It also VALIDATES the CLIENTE input
 	 */
 	@RequestMapping(value = { "/edit-{dniCliente}-cliente" }, method = RequestMethod.POST)
 	public String updateEmpleado(@Valid Cliente cliente, BindingResult result, ModelMap model,
@@ -169,8 +190,10 @@ public class AppController {
 		return "success";
 	}
 
+	
+	
 	/*
-	 * This method will delete an cliente by it's DNI value.
+	 * This method will DELETE an CLIENTE BY it's DNI value.
 	 */
 	@RequestMapping(value = { "/delete-{dni}-cliente" }, method = RequestMethod.GET)
 	public String deleteCliente(@PathVariable String dni) {
@@ -178,12 +201,28 @@ public class AppController {
 		return "redirect:/list";
 	}
 
+	
 	/*
-	 * A PARTIR DE AQUÍ EMPIEZAN LOS METODOS DE USUARIO
+	 * This method will LIST ALL EXISTING CLIENTES.
 	 */
+	@RequestMapping(value = "/list", method = RequestMethod.GET)
+	public String listClientes(ModelMap model) {
+
+		List<Cliente> clientes = clienteService.findAllClientes();
+		model.addAttribute("clientes", clientes);
+		return "allclientes";
+	}
+	
+	
+	//  --- FIN DE LOS METODOS DE CLIENTE ---
+	
+	
+	
+	//  --- A PARTIR DE AQUÍ EMPIEZAN LOS METODOS DE USUARIO ---
+	
 
 	/*
-	 * This method will list all existing empleados.
+	 * This method will LIST ALL EXISTING USUARIOS.
 	 */
 	@RequestMapping(value = { "/usuarios", "/listUsuarios" }, method = RequestMethod.GET)
 	public String listUsuarios(ModelMap model) {
@@ -193,6 +232,11 @@ public class AppController {
 		return "allusers";
 	}
 
+	
+
+	/*
+	 * This method will provide the MEDIUM TO LOGIN WITH a USUARIO.
+	 */
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public ModelAndView showLogin(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView modelAndView = new ModelAndView("login");
@@ -200,6 +244,13 @@ public class AppController {
 		return modelAndView;
 	}
 
+	
+	
+	/*
+	 * This method CHECK IF THE USUARIOS EXISTS IN DDBB and show different
+	 * VIEWS based on the NIVEL(rol) property of USUARIO.
+	 */
+	
 	@RequestMapping(value = "/loginProcess", method = RequestMethod.POST)
 	public ModelAndView loginProcess(HttpServletRequest request, HttpServletResponse response, @ModelAttribute("usuario") Usuario usuario) {
 		
@@ -213,12 +264,12 @@ public class AppController {
 			switch (usuarioTemp.getNivel()) {
 
 			case (1):
-				modelAndView = new ModelAndView("viewclients");
+				modelAndView = new ModelAndView("onlyviewclientes");
 				modelAndView.addObject("clientes", clientes);
 				break;
 
 			case (2):
-				modelAndView = new ModelAndView("allclients");
+				modelAndView = new ModelAndView("allclientes");
 				modelAndView.addObject("clientes", clientes);
 				break;
 
@@ -231,9 +282,22 @@ public class AppController {
 		return modelAndView;
 	}
 
+	
+	
+	//  --- FIN DE LOS METODOS DE USUARIO ---
+	
+	
+	
+	
+	//  --- A PARTIR DE AQUÍ EMPIEZAN LOS METODOS DE EMPLEADO ---
+	
+	
+	//  ** ACTUALMENTE SIN USO **
+	
 	/*
 	 * This method will provide the medium to add a new empleado.
 	 */
+	
 	@RequestMapping(value = { "/userregistration" }, method = RequestMethod.GET)
 	public String newUsuario(ModelMap model) {
 		Empleado empleado = new Empleado();
@@ -242,15 +306,92 @@ public class AppController {
 		return "registration";
 	}
 	
-	/*
-	 * This method will list all existing empleados.
-	 */
-	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public String listClientes(ModelMap model) {
+	
+	//  --- FIN DE LOS METODOS DE EMPLEADO ---
+	
+	
+	
+	
+	//  --- A PARTIR DE AQUÍ EMPIEZAN LOS METODOS DE CENTRO TURISTICO ---
 
+	
+	/*
+	 * This method will LIST ALL EXISTING CENTROS TURISTICOS.
+	 */
+	@RequestMapping(value = "/allcentrosturisticos", method = RequestMethod.GET)
+	public String listCentrosTuristicos(ModelMap model) {
+
+		List<CentroTuristico> centrosTuristicos = centroTuristicoService.findAllCentrosTuristicos();
+		model.addAttribute("centrosTuristicos", centrosTuristicos);
+		return "allcentrosturisticos";
+	}
+	
+	//  --- FIN DE LOS METODOS DE CENTRO TURISTICO ---
+	
+	
+	
+	//  --- A PARTIR DE AQUÍ EMPIEZAN LOS METODOS DE RESERVA ---
+
+	
+	/*
+	 * This method will LIST ALL EXISTING CENTROS TURISTICOS.
+	 */
+	@RequestMapping(value = "/allreservas", method = RequestMethod.GET)
+	public String listReservas(ModelMap model) {
+
+		List<Reserva> reservas = reservaService.findAllReservas();
+		model.addAttribute("reservas", reservas);
+		return "allreservas";
+	}
+	
+	
+	/*
+	 * This method will provide the MEDIUM TO ADD a NEW CLIENTE.
+	 */
+	@RequestMapping(value = { "/newreserva" }, method = RequestMethod.GET)
+	public String newReserva(ModelMap model) {
+		
+		
+		Reserva reserva = new Reserva();
+		
+		model.addAttribute("reserva", reserva);
+		model.addAttribute("edit", false);
+		
 		List<Cliente> clientes = clienteService.findAllClientes();
 		model.addAttribute("clientes", clientes);
-		return "allclients";
+		
+		List<CentroTuristico> centrosTuristicos = centroTuristicoService.findAllCentrosTuristicos();
+		model.addAttribute("centrosTuristicos", centrosTuristicos);
+		
+		return "registration";
 	}
+
+	
+	
+	/*
+	 * This method will be called ON FORM SUBMISSION, handling POST request for
+	 * SAVING RESERVA IN DDBB. It also VALIDATES the RESERVA INPUT.
+	 */
+	@RequestMapping(value = { "/newreserva" }, method = RequestMethod.POST)
+	public String saveReserva(@Valid Reserva reserva, BindingResult result, ModelMap model) {
+		
+		if (result.hasErrors()) {
+			return "reservaregistration";
+		}
+
+		Cliente cliente = clienteService.findById(reserva.getCliente().getId());
+		CentroTuristico centroTuristico = centroTuristicoService.findById(reserva.getCentroTuristico().getId());
+		
+		reserva.setCliente(cliente);
+		reserva.setCentroTuristico(centroTuristico);
+		
+		reservaService.saveReserva(reserva);
+
+		model.addAttribute("success", "La reserva ** " + reserva.getId() + " ** del Cliente: -- " + reserva.getCliente().getNombre() + " " + reserva.getCliente().getPrimerApellido() + " -- , en el Centro Turistico ** " + reserva.getCentroTuristico().getNombre() +" **, se ha REGISTRADO SATISFACTORIAMENTE");
+		return "success";
+	}
+	
+	//  --- FIN DE LOS METODOS DE RESERVA ---
+
 
 }

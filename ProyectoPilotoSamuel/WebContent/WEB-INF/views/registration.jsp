@@ -14,7 +14,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
-<title>SB Admin - Register</title>
+<title>Nuevo Cliente - SamuProject</title>
 
 <!-- Bootstrap core CSS-->
 <link

@@ -46,7 +46,7 @@ public class Cliente {
     
     @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
 //    @JoinTable(name="reservas", joinColumns=@JoinColumn(name="clientes_id"), inverseJoinColumns=@JoinColumn(name="centros_turisticos_id"))
-    private List<Reservas> reservas;
+    private List<Reserva> reservas;
  
     public Email getEmail() {
 		return email;
@@ -98,11 +98,11 @@ public class Cliente {
         this.dni = dni;
     }
 
-	public List<Reservas> getReservas() {
+	public List<Reserva> getReservas() {
 		return reservas;
 	}
 
-	public void setReservas(List<Reservas> reservas) {
+	public void setReservas(List<Reserva> reservas) {
 		this.reservas = reservas;
 	}
 

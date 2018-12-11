@@ -30,7 +30,7 @@ public class CentroTuristico {
     private int habitaciones;
     
     @OneToMany(mappedBy = "centroTuristico", cascade = CascadeType.ALL)
-    private List<Reservas> reservas;
+    private List<Reserva> reservas;
 
 	public int getId() {
 		return id;
@@ -56,11 +56,11 @@ public class CentroTuristico {
 		this.habitaciones = habitaciones;
 	}
 
-	public List<Reservas> getReservas() {
+	public List<Reserva> getReservas() {
 		return reservas;
 	}
 
-	public void setReservas(List<Reservas> reservas) {
+	public void setReservas(List<Reserva> reservas) {
 		this.reservas = reservas;
 	}
 

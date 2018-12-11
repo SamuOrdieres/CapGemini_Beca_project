@@ -1,10 +1,12 @@
 package com.samuordieres.model;
 
 import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.MapsId;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
@@ -14,17 +16,18 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(name="reservas")
-public class Reservas {
+public class Reserva {
 	
-	@EmbeddedId
-	private ReservasId id;
+	@Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
 	
 	@ManyToOne
-	@MapsId("clienteId")
+	@JoinColumn(name="clientes_id")
 	private Cliente cliente;
 	
 	@ManyToOne
-	@MapsId("centroTuristicoId")
+	@JoinColumn(name="centros_turisticos_id")
 	private CentroTuristico centroTuristico;
 	
 	@NotNull
@@ -39,11 +42,11 @@ public class Reservas {
 	@Type(type = "org.jadira.usertype.dateandtime.joda.PersistentLocalDate")
 	private LocalDate fechaSalida;
 
-	public ReservasId getId() {
+	public int getId() {
 		return id;
 	}
 
-	public void setId(ReservasId id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 
@@ -79,6 +82,8 @@ public class Reservas {
 		this.fechaSalida = fechaSalida;
 	}
 
+	
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -87,7 +92,7 @@ public class Reservas {
 		result = prime * result + ((cliente == null) ? 0 : cliente.hashCode());
 		result = prime * result + ((fechaEntrada == null) ? 0 : fechaEntrada.hashCode());
 		result = prime * result + ((fechaSalida == null) ? 0 : fechaSalida.hashCode());
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + id;
 		return result;
 	}
 
@@ -99,7 +104,7 @@ public class Reservas {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Reservas other = (Reservas) obj;
+		Reserva other = (Reserva) obj;
 		if (centroTuristico == null) {
 			if (other.centroTuristico != null)
 				return false;
@@ -120,10 +125,7 @@ public class Reservas {
 				return false;
 		} else if (!fechaSalida.equals(other.fechaSalida))
 			return false;
-		if (id == null) {
-			if (other.id != null)
-				return false;
-		} else if (!id.equals(other.id))
+		if (id != other.id)
 			return false;
 		return true;
 	}

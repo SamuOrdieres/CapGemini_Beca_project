@@ -21,7 +21,6 @@ public class EmailDAOImpl extends AbstractDAO<Integer, Email> implements EmailDA
 		persist(email);
 		
 	}
-
 	
 	@SuppressWarnings("unchecked")
 	@Override

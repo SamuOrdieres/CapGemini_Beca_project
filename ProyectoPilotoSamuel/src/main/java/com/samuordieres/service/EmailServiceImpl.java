@@ -34,27 +34,9 @@ public class EmailServiceImpl implements EmailService {
 			entity.setEmail(cliente.getEmail().getEmail());
 			entity.setCliente(cliente);
 			
-		} else {
-			System.out.println("*** Entity es null ***");
-		}
+		} 
 	
 	}
-	
-//	@Override
-//	public void updateEmailByCliente(Cliente cliente) {
-//		Email entity = dao.findEmailByClienteId(cliente.getId());
-//		if (entity != null) {
-//			entity.setEmail(cliente.getEmail().getEmail());
-//		} else {
-//			System.out.println("*** Entity es null ***");
-//		}
-//	
-//	}
-
-//	@Override
-//	public void deleteCentroTuristicoByNombre(String nombre) {
-//		dao.deleteCentroTuristicoByNombre(nombre);
-//	}
 
 	@Override
 	public List<Email> findAllEmails() {

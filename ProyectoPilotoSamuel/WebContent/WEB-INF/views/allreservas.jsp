@@ -13,7 +13,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Clients - SamuProject</title>
+    <title>Reservas - SamuProject</title>
 
     <!-- Bootstrap core CSS-->
     <link href="${pageContext.request.contextPath}/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -123,10 +123,20 @@
             <i class="fas fa-fw fa-chart-area"></i>
             <span>Charts</span></a>
         </li>
-        <li class="nav-item active">
+        <li class="nav-item">
           <a class="nav-link" href="tables.html">
             <i class="fas fa-fw fa-table"></i>
             <span>Clientes</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="<c:url value='/allcentrosturisticos' />">
+            <i class="fas fa-fw fa-table"></i>
+            <span>Centros Turisticos</span></a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" href="<c:url value='/allreservas' />">
+            <i class="fas fa-fw fa-table"></i>
+            <span>Reservas</span></a>
         </li>
       </ul>
 
@@ -139,56 +149,49 @@
             <li class="breadcrumb-item">
               <a href="#">Dashboard</a>
             </li>
-            <li class="breadcrumb-item active">Clientes</li>
+            <li class="breadcrumb-item active">Reservas</li>
           </ol>
 
           <!-- DataTables Example -->
           <div class="card mb-3">
             <div class="card-header">
-              <i class="fas fa-table"></i> Clientes
+              <i class="fas fa-table"></i> Reservas
               </div>
             <div class="card-body">
               <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                   <thead>
                     <tr>
+                      <th>Nº Reserva</th>
                       <th>Nombre</th>
-                      <th>Primer Apellido</th>
-                      <th>Segundo Apellido</th>
-<!--                       <th>Fecha Entrada</th> -->
-<!--                       <th>Fecha Salida</th> -->
-<!--                       <th>Centro Turistico</th> -->
-                      <th>Email</th>
-                      <th>DNI / NIE</th>
+                      <th>Apellidos</th>
+                      <th>Centro Turistico</th>
+                      <th>Fecha Entrada</th>
+                      <th>Fecha Salida</th>
                       <th>Eliminar</th>
-                      
                     </tr>
                   </thead>
                   <tfoot>
                     <tr>
+                      <th>Nº Reserva</th>
                       <th>Nombre</th>
-                      <th>Primer Apellido</th>
-                      <th>Segundo Apellido</th>
-<!--                       <th>Fecha Entrada</th> -->
-<!--                       <th>Fecha Salida</th> -->
-<!--                       <th>Centro Turistico</th> -->
-                      <th>Email</th>
-                      <th>DNI / NIE</th>
+                      <th>Apellidos</th>
+                      <th>Centro Turistico</th>
+                      <th>Fecha Entrada</th>
+                      <th>Fecha Salida</th>
                       <th>Eliminar</th>
                     </tr>
                   </tfoot>
                   <tbody>
-                  <c:forEach items="${clientes}" var="cliente">
+                  <c:forEach items="${reservas}" var="reserva">
                     <tr>
-                      <td>${cliente.nombre}</td>
-                      <td>${cliente.primerApellido}</td>
-                      <td>${cliente.segundoApellido}</td>
-<%-- 					  <td>${cliente.fechaEntrada}</td> --%>
-<%-- 					  <td>${cliente.fechaSalida}</td> --%>
-<%-- 					  <td>${cliente.centroTuristicoId}</td> --%>
-					  <td>${cliente.email.email}</td>
-					  <td><a href="<c:url value='/edit-${cliente.dni}-cliente' />">${cliente.dni}</a></td>
-					  <td><a href="<c:url value='/delete-${cliente.dni}-cliente' />">delete</a></td>
+                      <td><a href="<c:url value='/edit-${reserva.id}-reserva' />">${reserva.id}</a></td>
+                      <td>${reserva.cliente.nombre}</td>
+                      <td>${reserva.cliente.primerApellido} ${reserva.cliente.segundoApellido}</td>
+                      <td>${reserva.centroTuristico.nombre}</td>
+                      <td>${reserva.fechaEntrada}</td>
+                      <td>${reserva.fechaSalida}</td>
+					  <td><a href="<c:url value='/delete-${reserva.id}-reserva' />">delete</a></td>
                     </tr>
                   </c:forEach>
                   </tbody>
@@ -196,12 +199,12 @@
               </div>
             </div>
             <div class="card-footer small text-muted">
-            <a href="<c:url value='/new' />">Add New Cliente</a>
+            <a href="<c:url value='/newreserva' />">Añadir nueva Reserva</a>
 			</div>
           </div>
 
           <p class="small text-center text-muted my-5">
-            <em>Más clientes el próximo año...</em>
+            <em>Más Reservas el próximo año...</em>
           </p>
 
         </div>
@@ -211,7 +214,7 @@
         <footer class="sticky-footer">
           <div class="container my-auto">
             <div class="copyright text-center my-auto">
-              <span>Copyright Â© SamuOrdieres Project 2018</span>
+              <span>Copyright © SamuOrdieres Project 2018</span>
             </div>
           </div>
         </footer>
