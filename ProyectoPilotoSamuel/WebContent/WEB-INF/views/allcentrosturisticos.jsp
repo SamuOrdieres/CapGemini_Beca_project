@@ -124,7 +124,7 @@
             <span>Charts</span></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="tables.html">
+          <a class="nav-link" href="<c:url value='/list' />">
             <i class="fas fa-fw fa-table"></i>
             <span>Clientes</span></a>
         </li>

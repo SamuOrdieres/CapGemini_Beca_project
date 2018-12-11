@@ -1,5 +1,6 @@
 package com.samuordieres.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -339,7 +340,8 @@ public class AppController {
 	@RequestMapping(value = "/allreservas", method = RequestMethod.GET)
 	public String listReservas(ModelMap model) {
 
-		List<Reserva> reservas = reservaService.findAllReservas();
+		List<Reserva> reservas = new ArrayList<>();
+		reservas = reservaService.findAllReservas();
 		model.addAttribute("reservas", reservas);
 		return "allreservas";
 	}
@@ -363,7 +365,7 @@ public class AppController {
 		List<CentroTuristico> centrosTuristicos = centroTuristicoService.findAllCentrosTuristicos();
 		model.addAttribute("centrosTuristicos", centrosTuristicos);
 		
-		return "registration";
+		return "reservaregistration";
 	}
 
 	

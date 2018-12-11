@@ -48,7 +48,7 @@
 										<form:select path="centroTuristico.id" id="centroTuristicoId" name="centroTuristicoId" class="form-control" placeholder="Centro Turistico" required="required" autofocus="autofocus">
 										<label for="centroTuristicoId">Centro Turistico: </label>
 										<form:errors path="centroTuristico.id" cssClass="error" />
-										    <form:option value="">-- Selecciona el Centro Turistico --</form:option>
+										    <form:option value="-1">-- Selecciona el Centro Turistico --</form:option>
 											<form:options items="${centrosTuristicos}" itemLabel="nombre" itemValue="id"/>
 										</form:select>
 									</div>
@@ -62,7 +62,7 @@
 										<form:select path="cliente.id" id="clienteId" name="clienteId" class="form-control" placeholder="Cliente" required="required" autofocus="autofocus">
 										<label for="clienteId">Cliente: </label>
 										<form:errors path="cliente.id" cssClass="error" />
-										    <form:option value="">-- Selecciona el Centro Turistico --</form:option>
+										    <form:option value="-1">-- Selecciona el Centro Turistico --</form:option>
 											<form:options items="${clientes}" itemLabel="dni" itemValue="id"/>
 										</form:select>
 									</div>

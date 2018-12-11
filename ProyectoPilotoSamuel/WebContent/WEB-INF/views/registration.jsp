@@ -88,38 +88,38 @@
 								</div>
 							</div>
 						</div>
-						<div class="form-group">
-							<div class="form-row">
-								<div class="col-md">
-									<div class="form-label-group">
-										<form:select path="centroTuristicoId" id="centroTuristicoId" name="centroTuristicoId" class="form-control" placeholder="Centro Turistico" required="required" autofocus="autofocus">
-										<label for="centroTuristicoId">Centro Turistico: </label>
-										<form:errors path="centroTuristicoId" cssClass="error" />
-										    <form:option value="">-- Selecciona el Centro Turistico --</form:option>
-											<form:options items="${centrosTuristicos}" itemLabel="nombre" itemValue="id"/>
-										</form:select>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="form-group">
-							<div class="form-row">
-								<div class="col-md-6">
-									<div class="form-label-group">
-										<form:input path="fechaEntrada" id="fechaEntrada" class="form-control" required="required" autofocus="autofocus"/>
-										<label for="fechaEntrada">Fecha de entrada: </label>
-										<form:errors path="fechaEntrada" cssClass="error" />
-									</div>
-								</div>
-								<div class="col-md-6">
-									<div class="form-label-group">
-										<form:input path="fechaSalida" id="fechaSalida" class="form-control" required="required" autofocus="autofocus"/>
-										<label for="fechaSalida">Fecha de salida: </label>
-										<form:errors path="fechaSalida" cssClass="error" />
-									</div>
-								</div>
-							</div>
-						</div>
+<!-- 						<div class="form-group"> -->
+<!-- 							<div class="form-row"> -->
+<!-- 								<div class="col-md"> -->
+<!-- 									<div class="form-label-group"> -->
+<%-- 										<form:select path="centroTuristico.id" id="centroTuristicoId" name="centroTuristicoId" class="form-control" placeholder="Centro Turistico" required="required" autofocus="autofocus"> --%>
+<!-- 										<label for="centroTuristicoId">Centro Turistico: </label> -->
+<%-- 										<form:errors path="centroTuristico.id" cssClass="error" /> --%>
+<%-- 										    <form:option value="">-- Selecciona el Centro Turistico --</form:option> --%>
+<%-- 											<form:options items="${centrosTuristicos}" itemLabel="nombre" itemValue="id"/> --%>
+<%-- 										</form:select> --%>
+<!-- 									</div> -->
+<!-- 								</div> -->
+<!-- 							</div> -->
+<!-- 						</div> -->
+<!-- 						<div class="form-group"> -->
+<!-- 							<div class="form-row"> -->
+<!-- 								<div class="col-md-6"> -->
+<!-- 									<div class="form-label-group"> -->
+<%-- 										<form:input path="fechaEntrada" id="fechaEntrada" class="form-control" required="required" autofocus="autofocus"/> --%>
+<!-- 										<label for="fechaEntrada">Fecha de entrada: </label> -->
+<%-- 										<form:errors path="fechaEntrada" cssClass="error" /> --%>
+<!-- 									</div> -->
+<!-- 								</div> -->
+<!-- 								<div class="col-md-6"> -->
+<!-- 									<div class="form-label-group"> -->
+<%-- 										<form:input path="fechaSalida" id="fechaSalida" class="form-control" required="required" autofocus="autofocus"/> --%>
+<!-- 										<label for="fechaSalida">Fecha de salida: </label> -->
+<%-- 										<form:errors path="fechaSalida" cssClass="error" /> --%>
+<!-- 									</div> -->
+<!-- 								</div> -->
+<!-- 							</div> -->
+<!-- 						</div> -->
 						<c:choose>
 							<c:when test="${edit}">
 								<input type="submit" value="Update"
