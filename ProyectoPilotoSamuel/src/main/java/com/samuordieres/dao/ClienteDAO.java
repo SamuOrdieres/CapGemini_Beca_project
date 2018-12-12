@@ -15,5 +15,7 @@ public interface ClienteDAO {
     List<Cliente> findAllClientes();
  
     Cliente findClienteByDni(String dni);
+    
+	void mergeCliente(Cliente cliente);
 }
 

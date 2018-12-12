@@ -42,8 +42,7 @@ public class Cliente {
     @Column(name = "dni", unique=true, nullable = false)
     private String dni;
 
-    @OneToOne(fetch = FetchType.EAGER, mappedBy="cliente")
-    @Cascade({org.hibernate.annotations.CascadeType.ALL})
+    @OneToOne(fetch = FetchType.EAGER, mappedBy="cliente", cascade = CascadeType.ALL)
     private Email email;
     
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "cliente", cascade = CascadeType.ALL)
@@ -125,7 +124,6 @@ public class Cliente {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((dni == null) ? 0 : dni.hashCode());
-		result = prime * result + ((email == null) ? 0 : email.hashCode());
 		result = prime * result + id;
 		result = prime * result + ((nombre == null) ? 0 : nombre.hashCode());
 		result = prime * result + ((primerApellido == null) ? 0 : primerApellido.hashCode());

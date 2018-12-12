@@ -36,8 +36,8 @@ public class CentroTuristicoServiceImpl implements CentroTuristicoService {
 	}
 
 	@Override
-	public void deleteCentroTuristicoByNombre(String nombre) {
-		dao.deleteCentroTuristicoByNombre(nombre);
+	public void deleteCentroTuristicoById(int id) {
+		dao.deleteCentroTuristicoById(id);
 	}
 
 	@Override

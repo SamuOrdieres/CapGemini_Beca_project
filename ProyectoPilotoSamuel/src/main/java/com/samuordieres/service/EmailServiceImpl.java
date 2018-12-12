@@ -33,7 +33,7 @@ public class EmailServiceImpl implements EmailService {
 		if (entity != null) {
 			entity.setEmail(cliente.getEmail().getEmail());
 			entity.setCliente(cliente);
-			
+			dao.updateEmail(entity);
 		} 
 	
 	}

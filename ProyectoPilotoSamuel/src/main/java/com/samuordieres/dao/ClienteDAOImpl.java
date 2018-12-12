@@ -44,6 +44,10 @@ public class ClienteDAOImpl extends AbstractDAO<Integer, Cliente> implements Cli
         return (Cliente) criteria.uniqueResult();
 	}
 	
+	@Override
+	public void mergeCliente(Cliente cliente) {
+		getSession().merge(cliente);
+	}
 	
 
 }

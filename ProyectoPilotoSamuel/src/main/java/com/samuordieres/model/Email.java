@@ -55,18 +55,21 @@ public class Email {
 	}
 
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((email == null) ? 0 : email.hashCode());
-		result = prime * result + id;
-		return result;
-	}
+	
 
 	@Override
 	public String toString() {
 		return "Email [id=" + id + ", email=" + email + "]";
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((cliente == null) ? 0 : cliente.hashCode());
+		result = prime * result + ((email == null) ? 0 : email.hashCode());
+		result = prime * result + id;
+		return result;
 	}
 
 	@Override
@@ -78,6 +81,11 @@ public class Email {
 		if (getClass() != obj.getClass())
 			return false;
 		Email other = (Email) obj;
+		if (cliente == null) {
+			if (other.cliente != null)
+				return false;
+		} else if (!cliente.equals(other.cliente))
+			return false;
 		if (email == null) {
 			if (other.email != null)
 				return false;
@@ -87,6 +95,8 @@ public class Email {
 			return false;
 		return true;
 	}
+
+	
 
 	
     

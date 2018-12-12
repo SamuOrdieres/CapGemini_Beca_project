@@ -163,7 +163,7 @@ public class AppController {
 	 * UPDATING CLIENTE in DDBB. It also VALIDATES the CLIENTE input
 	 */
 	@RequestMapping(value = { "/edit-{dniCliente}-cliente" }, method = RequestMethod.POST)
-	public String updateEmpleado(@Valid Cliente cliente, BindingResult result, ModelMap model,
+	public String updateCliente(@Valid Cliente cliente, BindingResult result, ModelMap model,
 			@PathVariable String dniCliente) {
 		
 		Email email = new Email();
@@ -179,7 +179,7 @@ public class AppController {
 			return "registration";
 		}
 
-		email.setId(cliente.getEmail().getId());
+		email.setId(emailService.findEmailByClienteId(cliente.getId()).getId());
 		email.setEmail((cliente.getEmail().getEmail()));		
 		email.setCliente(cliente);
 		cliente.setEmail(email);
@@ -327,6 +327,112 @@ public class AppController {
 		return "allcentrosturisticos";
 	}
 	
+	/*
+	 * This method will provide the MEDIUM TO ADD a NEW RESERVA.
+	 */
+	@RequestMapping(value = { "/newcentroturistico" }, method = RequestMethod.GET)
+	public String newCentroTuristico(ModelMap model) {
+		
+		
+		CentroTuristico centroTuristico = new CentroTuristico();
+		
+		model.addAttribute("centroTuristico", centroTuristico);
+		model.addAttribute("edit", false);
+		
+			
+		return "centroturisticoregistration";
+	}
+
+	
+	
+	/*
+	 * This method will be called ON FORM SUBMISSION, handling POST request for
+	 * SAVING RESERVA IN DDBB. It also VALIDATES the RESERVA INPUT.
+	 */
+	@RequestMapping(value = { "/newcentroturistico" }, method = RequestMethod.POST)
+	public String saveCentroTuristico(@Valid CentroTuristico centroTuristico, BindingResult result, ModelMap model) {
+		
+		if (result.hasErrors()) {
+			return "centroturisticoregistration";
+		}
+
+		/*
+		 * Preferred way to achieve uniqueness of field [dni] should be implementing
+		 * custom @Unique annotation and applying it on field [dni] of Model class
+		 * [Cliente].
+		 * 
+		 * Below [if block] is to demonstrate that you can fill
+		 * custom errors outside the validation framework as well while still using
+		 * internationalized messages.
+		 * 
+		 */
+		if (!centroTuristicoService.isCentroTuristicoNombreUnique(centroTuristico.getId(), centroTuristico.getNombre())) {
+			FieldError nombreError = new FieldError("centroTuristico", "nombre", messageSource.getMessage("non.unique.nombre",
+					new String[] { centroTuristico.getNombre() }, Locale.getDefault()));
+			result.addError(nombreError);
+			return "centroturisticoregistration";
+		}
+
+		
+		
+		
+		centroTuristicoService.saveCentroTuristico(centroTuristico);
+
+		model.addAttribute("success", "El Centro Turístico: " + centroTuristico.getNombre() + ", se ha REGISTRADO SATISFACTORIAMENTE");
+		return "success";
+	}
+	
+	
+	/*
+	 * This method will provide the MEDIUM TO UPDATE an EXISTING RESERVA.
+	 */
+	@RequestMapping(value = { "/edit-{idCentroTuristico}-centroturistico" }, method = RequestMethod.GET)
+	public String editCentroTuristico(@PathVariable int idCentroTuristico, ModelMap model) {
+		
+		
+		CentroTuristico centroTuristico = centroTuristicoService.findById(idCentroTuristico);
+		model.addAttribute("centroTuristico", centroTuristico);
+		
+		model.addAttribute("edit", true);
+		
+		return "centroturisticoregistration";
+	}
+	
+	
+
+	/*
+	 * This method will be CALLED ON FORM SUBMISSION, handling POST request for
+	 * UPDATING RESERVA in DDBB. It also VALIDATES the RESERVA input
+	 */
+	@RequestMapping(value = { "/edit-{idCentroTuristico}-centroturistico" }, method = RequestMethod.POST)
+	public String updateCentroTuristico(@Valid CentroTuristico centroTuristico, BindingResult result, ModelMap model,
+			@PathVariable int idCentroTuristico) {
+		
+		if (result.hasErrors()) {
+			return "centroturisticoregistration";
+		}
+
+		
+		centroTuristicoService.updateCentroTuristico(centroTuristico);
+		
+		
+
+		model.addAttribute("success", "El Centro Turístico: " + centroTuristico.getNombre() + ", se ha ACTUALIZADO SATISFACTORIAMENTE");
+		return "success";
+	}
+
+	
+	
+	/*
+	 * This method will DELETE a CENTRO TURISTICO BY it's ID value.
+	 */
+	@RequestMapping(value = { "/delete-{idCentroTuristico}-centroturistico" }, method = RequestMethod.GET)
+	public String deleteCentroTuristico(@PathVariable int idCentroTuristico) {
+		centroTuristicoService.deleteCentroTuristicoById(idCentroTuristico);
+		return "redirect:/allcentrosturisticos";
+	}
+	
+	
 	//  --- FIN DE LOS METODOS DE CENTRO TURISTICO ---
 	
 	
@@ -335,7 +441,7 @@ public class AppController {
 
 	
 	/*
-	 * This method will LIST ALL EXISTING CENTROS TURISTICOS.
+	 * This method will LIST ALL EXISTING RESERVAS.
 	 */
 	@RequestMapping(value = "/allreservas", method = RequestMethod.GET)
 	public String listReservas(ModelMap model) {
@@ -459,7 +565,7 @@ public class AppController {
 	
 	
 	/*
-	 * This method will DELETE an CLIENTE BY it's DNI value.
+	 * This method will DELETE a RESERVA BY it's ID value.
 	 */
 	@RequestMapping(value = { "/delete-{idReserva}-reserva" }, method = RequestMethod.GET)
 	public String deleteReserva(@PathVariable int idReserva) {

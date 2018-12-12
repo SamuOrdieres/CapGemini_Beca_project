@@ -24,9 +24,9 @@ public class CentroTuristicoDAOImpl extends AbstractDAO<Integer, CentroTuristico
 	}
 
 	@Override
-	public void deleteCentroTuristicoByNombre(String nombre) {
-		Query query = getSession().createSQLQuery("delete from centros_turisticos where nombre = :nombre");
-        query.setString("nombre", nombre);
+	public void deleteCentroTuristicoById(int id) {
+		Query query = getSession().createSQLQuery("delete from centros_turisticos where id = :id");
+        query.setInteger("id", id);
         query.executeUpdate();		
 	}
 

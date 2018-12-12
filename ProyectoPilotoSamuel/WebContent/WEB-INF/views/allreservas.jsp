@@ -124,18 +124,18 @@
             <span>Charts</span></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="tables.html">
-            <i class="fas fa-fw fa-table"></i>
+          <a class="nav-link" href="<c:url value='/list' />">
+            <i class="fas fa-fw fa-user-friends"></i>
             <span>Clientes</span></a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="<c:url value='/allcentrosturisticos' />">
-            <i class="fas fa-fw fa-table"></i>
+            <i class="fas fa-fw fa-hotel"></i>
             <span>Centros Turisticos</span></a>
         </li>
         <li class="nav-item active">
           <a class="nav-link" href="<c:url value='/allreservas' />">
-            <i class="fas fa-fw fa-table"></i>
+            <i class="fas fa-fw fa-calendar-check"></i>
             <span>Reservas</span></a>
         </li>
       </ul>
@@ -163,8 +163,7 @@
                   <thead>
                     <tr>
                       <th>Nº Reserva</th>
-                      <th>Nombre</th>
-                      <th>Apellidos</th>
+                      <th>Cliente</th>
                       <th>Centro Turistico</th>
                       <th>Fecha Entrada</th>
                       <th>Fecha Salida</th>
@@ -174,8 +173,7 @@
                   <tfoot>
                     <tr>
                       <th>Nº Reserva</th>
-                      <th>Nombre</th>
-                      <th>Apellidos</th>
+                      <th>Cliente</th>
                       <th>Centro Turistico</th>
                       <th>Fecha Entrada</th>
                       <th>Fecha Salida</th>
@@ -186,8 +184,8 @@
                   <c:forEach items="${reservas}" var="reserva">
                     <tr>
                       <td><a href="<c:url value='/edit-${reserva.id}-reserva' />">${reserva.id}</a></td>
-                      <td>${reserva.cliente.nombre}</td>
-                      <td>${reserva.cliente.primerApellido} ${reserva.cliente.segundoApellido}</td>
+                      <td><a href="<c:url value='/edit-${reserva.cliente.dni}-cliente' />">${reserva.cliente.fullNameDni}</a></td>
+<%--                       <td><a href="<c:url value='/edit-${reserva.centroTuristico.id}-centroturistico' />">${reserva.centroTuristico.nombre}</a></td> --%>
                       <td>${reserva.centroTuristico.nombre}</td>
                       <td>${reserva.fechaEntrada}</td>
                       <td>${reserva.fechaSalida}</td>

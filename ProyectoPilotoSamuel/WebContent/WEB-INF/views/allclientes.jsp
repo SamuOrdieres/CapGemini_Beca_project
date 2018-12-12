@@ -118,24 +118,24 @@
             <a class="dropdown-item" href="blank.html">Blank Page</a>
           </div>
         </li>
-        <li class="nav-item">
+       <li class="nav-item">
           <a class="nav-link" href="charts.html">
             <i class="fas fa-fw fa-chart-area"></i>
             <span>Charts</span></a>
         </li>
         <li class="nav-item active">
-          <a class="nav-link" href="<c:url value='/allclientes' />">
-            <i class="fas fa-fw fa-table"></i>
+          <a class="nav-link" href="<c:url value='/list' />">
+            <i class="fas fa-fw fa-user-friends"></i>
             <span>Clientes</span></a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="<c:url value='/allcentrosturisticos' />">
-            <i class="fas fa-fw fa-table"></i>
+            <i class="fas fa-fw fa-hotel"></i>
             <span>Centros Turisticos</span></a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="<c:url value='/allreservas' />">
-            <i class="fas fa-fw fa-table"></i>
+            <i class="fas fa-fw fa-calendar-check"></i>
             <span>Reservas</span></a>
         </li>
       </ul>

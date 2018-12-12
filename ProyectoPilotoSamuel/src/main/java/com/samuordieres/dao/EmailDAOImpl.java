@@ -42,6 +42,11 @@ public class EmailDAOImpl extends AbstractDAO<Integer, Email> implements EmailDA
 		Criteria criteria = createEntityCriteria();
         criteria.add(Restrictions.eq("emails", emailStr));
         return (Email) criteria.uniqueResult();
+	}
+
+	@Override
+	public void updateEmail(Email email) {
+		getSession().merge(email);
 	} 
 	
 }

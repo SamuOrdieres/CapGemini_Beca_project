@@ -125,17 +125,17 @@
         </li>
         <li class="nav-item">
           <a class="nav-link" href="<c:url value='/list' />">
-            <i class="fas fa-fw fa-table"></i>
+            <i class="fas fa-fw fa-user-friends"></i>
             <span>Clientes</span></a>
         </li>
         <li class="nav-item active">
           <a class="nav-link" href="<c:url value='/allcentrosturisticos' />">
-            <i class="fas fa-fw fa-table"></i>
+            <i class="fas fa-fw fa-hotel"></i>
             <span>Centros Turisticos</span></a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="<c:url value='/allreservas' />">
-            <i class="fas fa-fw fa-table"></i>
+            <i class="fas fa-fw fa-calendar-check"></i>
             <span>Reservas</span></a>
         </li>
       </ul>
@@ -178,9 +178,9 @@
                   <tbody>
                   <c:forEach items="${centrosTuristicos}" var="centroTuristico">
                     <tr>
-                      <td><a href="<c:url value='/edit-${centroTuristico.id}-centroTuristico' />">${centroTuristico.nombre}</a></td>
+                      <td><a href="<c:url value='/edit-${centroTuristico.id}-centroturistico' />">${centroTuristico.nombre}</a></td>
                       <td>${centroTuristico.habitaciones}</td>
-					  <td><a href="<c:url value='/delete-${centroTuristico.id}-centroTuristico' />">delete</a></td>
+					  <td><a href="<c:url value='/delete-${centroTuristico.id}-centroturistico' />">delete</a></td>
                     </tr>
                   </c:forEach>
                   </tbody>

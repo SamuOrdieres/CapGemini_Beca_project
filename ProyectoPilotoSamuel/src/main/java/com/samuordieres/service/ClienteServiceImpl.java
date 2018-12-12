@@ -35,7 +35,6 @@ public class ClienteServiceImpl implements ClienteService {
 
 	@Override
 	public void updateCliente(Cliente cliente) {
-		// TODO Auto-generated method stub
 		Cliente entity = dao.findById(cliente.getId());
         if(entity!=null){
             entity.setNombre(cliente.getNombre());
@@ -44,6 +43,7 @@ public class ClienteServiceImpl implements ClienteService {
             entity.setDni(cliente.getDni());
             entity.setEmail(cliente.getEmail());
             entity.setReservas(cliente.getReservas());
+    		dao.mergeCliente(cliente);
         }
 		
 	}

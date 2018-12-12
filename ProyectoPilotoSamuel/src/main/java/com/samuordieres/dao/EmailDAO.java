@@ -15,4 +15,6 @@ public interface EmailDAO {
 	Email findEmailByClienteId(Integer clientes_id);
 	
 	Email findEmailByEmail(String emailStr);
+	
+	void updateEmail(Email email);
 }

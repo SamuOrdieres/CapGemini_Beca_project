@@ -12,7 +12,7 @@ public interface CentroTuristicoService {
      
     void updateCentroTuristico(CentroTuristico centroTuristico);
      
-    void deleteCentroTuristicoByNombre(String nombre);
+    void deleteCentroTuristicoById(int id);
  
     List<CentroTuristico> findAllCentrosTuristicos(); 
      

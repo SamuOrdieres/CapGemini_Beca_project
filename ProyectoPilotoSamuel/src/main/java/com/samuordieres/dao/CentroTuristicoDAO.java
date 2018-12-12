@@ -10,7 +10,7 @@ public interface CentroTuristicoDAO {
 	 
     void saveCentroTuristico(CentroTuristico centroTuristico);
      
-    void deleteCentroTuristicoByNombre(String nombre);
+    void deleteCentroTuristicoById(int id);
      
     List<CentroTuristico> findAllCentrosTuristicos();
  
