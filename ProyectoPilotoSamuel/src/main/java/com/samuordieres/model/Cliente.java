@@ -14,6 +14,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
+import org.hibernate.annotations.Cascade;
 import org.hibernate.validator.constraints.NotEmpty;
 
 
@@ -41,7 +42,8 @@ public class Cliente {
     @Column(name = "dni", unique=true, nullable = false)
     private String dni;
 
-    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy="cliente")
+    @OneToOne(fetch = FetchType.EAGER, mappedBy="cliente")
+    @Cascade({org.hibernate.annotations.CascadeType.ALL})
     private Email email;
     
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "cliente", cascade = CascadeType.ALL)

@@ -23,7 +23,7 @@ public class ReservaDAOImpl extends AbstractDAO<Integer, Reserva> implements Res
 
 	@Override
 	public void deleteReserva(int id) {
-		Query query = getSession().createSQLQuery("delete from clientes where id = :id");
+		Query query = getSession().createSQLQuery("delete from reservas where id = :id");
         query.setInteger("id", id);
         query.executeUpdate();		
 	}

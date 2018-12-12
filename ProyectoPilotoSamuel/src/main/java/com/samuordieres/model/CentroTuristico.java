@@ -14,6 +14,8 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.hibernate.annotations.Cascade;
+
 @Entity
 @Table(name="centros_turisticos")
 public class CentroTuristico {
@@ -30,7 +32,8 @@ public class CentroTuristico {
     @Column(name = "habitaciones", nullable = false)
     private int habitaciones;
     
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "centroTuristico", cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "centroTuristico")
+    @Cascade({org.hibernate.annotations.CascadeType.ALL})
     private List<Reserva> reservas;
 
 	public int getId() {

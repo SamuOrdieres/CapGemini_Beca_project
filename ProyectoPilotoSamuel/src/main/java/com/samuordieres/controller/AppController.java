@@ -348,7 +348,7 @@ public class AppController {
 	
 	
 	/*
-	 * This method will provide the MEDIUM TO ADD a NEW CLIENTE.
+	 * This method will provide the MEDIUM TO ADD a NEW RESERVA.
 	 */
 	@RequestMapping(value = { "/newreserva" }, method = RequestMethod.GET)
 	public String newReserva(ModelMap model) {
@@ -360,9 +360,9 @@ public class AppController {
 		model.addAttribute("edit", false);
 		
 		List<Cliente> clientes = clienteService.findAllClientes();
-		model.addAttribute("clientes", clientes);
-		
 		List<CentroTuristico> centrosTuristicos = centroTuristicoService.findAllCentrosTuristicos();
+		
+		model.addAttribute("clientes", clientes);
 		model.addAttribute("centrosTuristicos", centrosTuristicos);
 		
 		return "reservaregistration";
@@ -389,8 +389,82 @@ public class AppController {
 		
 		reservaService.saveReserva(reserva);
 
-		model.addAttribute("success", "La reserva ** " + reserva.getId() + " ** del Cliente: -- " + reserva.getCliente().getNombre() + " " + reserva.getCliente().getPrimerApellido() + " -- , en el Centro Turistico ** " + reserva.getCentroTuristico().getNombre() +" **, se ha REGISTRADO SATISFACTORIAMENTE");
+		model.addAttribute("success", "La reserva ** " + reserva.getId() + " ** del Cliente: -- " 
+		+ reserva.getCliente().getNombre() + " " + reserva.getCliente().getPrimerApellido() 
+		+ " -- , en el Centro Turistico ** " + reserva.getCentroTuristico().getNombre() 
+		+" **, se ha REGISTRADO SATISFACTORIAMENTE");
+		
 		return "success";
+	}
+	
+	
+	/*
+	 * This method will provide the MEDIUM TO UPDATE an EXISTING RESERVA.
+	 */
+	@RequestMapping(value = { "/edit-{idReserva}-reserva" }, method = RequestMethod.GET)
+	public String editReserva(@PathVariable int idReserva, ModelMap model) {
+		
+		Reserva reserva = reservaService.findById(idReserva);
+		Cliente cliente = reserva.getCliente();
+		CentroTuristico centroTuristico = reserva.getCentroTuristico();
+		
+		model.addAttribute("reserva", reserva);
+		model.addAttribute("cliente", cliente);
+		model.addAttribute("centroTuristico", centroTuristico);
+		
+		List<Cliente> clientes = clienteService.findAllClientes();
+		List<CentroTuristico> centrosTuristicos = centroTuristicoService.findAllCentrosTuristicos();
+		
+		model.addAttribute("clientes", clientes);
+		model.addAttribute("centrosTuristicos", centrosTuristicos);
+		
+		model.addAttribute("edit", true);
+		
+		return "reservaregistration";
+	}
+	
+	
+
+	/*
+	 * This method will be CALLED ON FORM SUBMISSION, handling POST request for
+	 * UPDATING RESERVA in DDBB. It also VALIDATES the RESERVA input
+	 */
+	@RequestMapping(value = { "/edit-{idReserva}-reserva" }, method = RequestMethod.POST)
+	public String updateReserva(@Valid Reserva reserva, BindingResult result, ModelMap model,
+			@PathVariable int idReserva) {
+		
+		if (result.hasErrors()) {
+			return "reservaregistration";
+		}
+
+		
+		Cliente cliente = clienteService.findById(reserva.getCliente().getId());
+		CentroTuristico centroTuristico = centroTuristicoService.findById(reserva.getCentroTuristico().getId());
+		
+		reserva.setCliente(cliente);
+		reserva.setCentroTuristico(centroTuristico);
+		
+		reservaService.updateReserva(reserva);
+		
+		
+
+		model.addAttribute("success", "La reserva ** " + reserva.getId() + " ** del Cliente: -- "
+						+ reserva.getCliente().getNombre() + " " + reserva.getCliente().getPrimerApellido()
+						+ " -- , en el Centro Turistico ** " + reserva.getCentroTuristico().getNombre()
+						+ " **, se ha ACTUALIZADO SATISFACTORIAMENTE");
+		
+		return "success";
+	}
+
+	
+	
+	/*
+	 * This method will DELETE an CLIENTE BY it's DNI value.
+	 */
+	@RequestMapping(value = { "/delete-{idReserva}-reserva" }, method = RequestMethod.GET)
+	public String deleteReserva(@PathVariable int idReserva) {
+		reservaService.deleteReserva(idReserva);
+		return "redirect:/allreservas";
 	}
 	
 	//  --- FIN DE LOS METODOS DE RESERVA ---
