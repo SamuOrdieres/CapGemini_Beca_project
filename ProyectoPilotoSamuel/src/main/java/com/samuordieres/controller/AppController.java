@@ -107,6 +107,9 @@ public class AppController {
 		List<CentroTuristico> centrosTuristicos = centroTuristicoService.findAllCentrosTuristicos();
 		model.addAttribute("centrosTuristicos", centrosTuristicos);
 		
+        model.addAttribute("loggedinuser", getPrincipal());
+
+		
 		return "registration";
 	}
 
@@ -228,6 +231,7 @@ public class AppController {
 
 		List<Cliente> clientes = clienteService.findAllClientes();
 		model.addAttribute("clientes", clientes);
+        model.addAttribute("loggedinuser", getPrincipal());
 		return "allclientes";
 	}
 	
@@ -522,6 +526,8 @@ public class AppController {
 
 		List<CentroTuristico> centrosTuristicos = centroTuristicoService.findAllCentrosTuristicos();
 		model.addAttribute("centrosTuristicos", centrosTuristicos);
+        model.addAttribute("loggedinuser", getPrincipal());
+
 		return "allcentrosturisticos";
 	}
 	
@@ -647,6 +653,8 @@ public class AppController {
 		List<Reserva> reservas = new ArrayList<>();
 		reservas = reservaService.findAllReservas();
 		model.addAttribute("reservas", reservas);
+        model.addAttribute("loggedinuser", getPrincipal());
+
 		return "allreservas";
 	}
 	

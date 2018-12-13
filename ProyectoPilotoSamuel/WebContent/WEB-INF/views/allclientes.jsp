@@ -85,7 +85,7 @@
             <a class="dropdown-item" href="#">${loggedinuser} <em>(settings)</em></a>
             <a class="dropdown-item" href="#">Activity Log</a>
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="<c:url value="/logout" />">Logout</a>
+            <a class="dropdown-item" href="<c:url value="/logout" />" >Logout</a>
           </div>
         </li>
       </ul>

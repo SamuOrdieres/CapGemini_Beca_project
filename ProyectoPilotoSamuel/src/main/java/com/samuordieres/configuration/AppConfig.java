@@ -29,6 +29,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import com.samuordieres.converter.RoleToUserProfileConverter;
 
+
 @Configuration
 @EnableWebMvc
 @ComponentScan(basePackages = "com.samuordieres")
@@ -51,8 +52,7 @@ public class AppConfig implements WebMvcConfigurer {
 
 	@Override
 	public void addFormatters(FormatterRegistry registry) {
-		// TODO Auto-generated method stub
-
+		registry.addConverter(roleToUserProfileConverter);
 	}
 
 	@Override
