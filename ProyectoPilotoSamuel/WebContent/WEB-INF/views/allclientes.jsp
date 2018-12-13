@@ -1,7 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
+<%@ page isELIgnored="false" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -82,13 +82,14 @@
             <i class="fas fa-user-circle fa-fw"></i>
           </a>
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-            <a class="dropdown-item" href="#">Settings</a>
+            <a class="dropdown-item" href="#">${loggedinuser} <em>(settings)</em></a>
             <a class="dropdown-item" href="#">Activity Log</a>
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">Logout</a>
+            <a class="dropdown-item" href="<c:url value="/logout" />">Logout</a>
           </div>
         </li>
       </ul>
+
 
     </nav>
 
@@ -118,10 +119,16 @@
             <a class="dropdown-item" href="blank.html">Blank Page</a>
           </div>
         </li>
+        
        <li class="nav-item">
           <a class="nav-link" href="charts.html">
             <i class="fas fa-fw fa-chart-area"></i>
             <span>Charts</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="<c:url value='/listusers' />">
+            <i class="fas fa-fw fa-user-shield"></i>
+            <span>Usuarios</span></a>
         </li>
         <li class="nav-item active">
           <a class="nav-link" href="<c:url value='/list' />">

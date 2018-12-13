@@ -2,6 +2,7 @@ package com.samuordieres.configuration;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -16,6 +17,7 @@ import org.springframework.web.method.support.HandlerMethodReturnValueHandler;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.config.annotation.AsyncSupportConfigurer;
 import org.springframework.web.servlet.config.annotation.ContentNegotiationConfigurer;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -25,122 +27,124 @@ import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+import com.samuordieres.converter.RoleToUserProfileConverter;
 
 @Configuration
 @EnableWebMvc
 @ComponentScan(basePackages = "com.samuordieres")
 public class AppConfig implements WebMvcConfigurer {
 
-  
+	@Autowired
+	RoleToUserProfileConverter roleToUserProfileConverter;
 
+	@Override
+	public void configureViewResolvers(ViewResolverRegistry registry) {
+		registry.jsp().prefix("/WEB-INF/views/").suffix(".jsp");
+	}
 
-@Override
-  public void configureViewResolvers(ViewResolverRegistry registry) {
-    registry.jsp().prefix("/WEB-INF/views/").suffix(".jsp");}
-  
-  @Bean
-  public MessageSource messageSource() {
-     ResourceBundleMessageSource source = new ResourceBundleMessageSource();
-     source.setBasename("messages");
-     return source;
-  }
+	@Bean
+	public MessageSource messageSource() {
+		ResourceBundleMessageSource source = new ResourceBundleMessageSource();
+		source.setBasename("messages");
+		return source;
+	}
 
-@Override
-public void addFormatters(FormatterRegistry registry) {
-	// TODO Auto-generated method stub
-	
+	@Override
+	public void addFormatters(FormatterRegistry registry) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void extendMessageConverters(List<HttpMessageConverter<?>> converters) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public Validator getValidator() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void configureContentNegotiation(ContentNegotiationConfigurer configurer) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void configureAsyncSupport(AsyncSupportConfigurer configurer) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void configurePathMatch(PathMatchConfigurer configurer) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void addReturnValueHandlers(List<HandlerMethodReturnValueHandler> returnValueHandlers) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void configureHandlerExceptionResolvers(List<HandlerExceptionResolver> exceptionResolvers) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void addInterceptors(InterceptorRegistry registry) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public MessageCodesResolver getMessageCodesResolver() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void addViewControllers(ViewControllerRegistry registry) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void addResourceHandlers(ResourceHandlerRegistry registry) {
+		registry.addResourceHandler("/assets/**").addResourceLocations("/assets/");
+	}
+
+	@Override
+	public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void addCorsMappings(CorsRegistry registry) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
-
-@Override
-public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
-	// TODO Auto-generated method stub
-	
-}
-
-@Override
-public void extendMessageConverters(List<HttpMessageConverter<?>> converters) {
-	// TODO Auto-generated method stub
-	
-}
-
-@Override
-public Validator getValidator() {
-	// TODO Auto-generated method stub
-	return null;
-}
-
-@Override
-public void configureContentNegotiation(ContentNegotiationConfigurer configurer) {
-	// TODO Auto-generated method stub
-	
-}
-
-@Override
-public void configureAsyncSupport(AsyncSupportConfigurer configurer) {
-	// TODO Auto-generated method stub
-	
-}
-
-@Override
-public void configurePathMatch(PathMatchConfigurer configurer) {
-	// TODO Auto-generated method stub
-	
-}
-
-@Override
-public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {
-	// TODO Auto-generated method stub
-	
-}
-
-@Override
-public void addReturnValueHandlers(List<HandlerMethodReturnValueHandler> returnValueHandlers) {
-	// TODO Auto-generated method stub
-	
-}
-
-@Override
-public void configureHandlerExceptionResolvers(List<HandlerExceptionResolver> exceptionResolvers) {
-	// TODO Auto-generated method stub
-	
-}
-
-@Override
-public void addInterceptors(InterceptorRegistry registry) {
-	// TODO Auto-generated method stub
-	
-}
-
-@Override
-public MessageCodesResolver getMessageCodesResolver() {
-	// TODO Auto-generated method stub
-	return null;
-}
-
-@Override
-public void addViewControllers(ViewControllerRegistry registry) {
-	// TODO Auto-generated method stub
-	
-}
-
-@Override
-public void addResourceHandlers(ResourceHandlerRegistry registry) {
-	registry
-    .addResourceHandler("/assets/**")
-    .addResourceLocations("/assets/");	
-}
-
-@Override
-public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
-	// TODO Auto-generated method stub
-	
-}
-
-}
-
-
-
-
 
 //@Configuration
 //@EnableWebMvc
@@ -164,4 +168,3 @@ public void configureDefaultServletHandling(DefaultServletHandlerConfigurer conf
 //    }
 //
 //}
-
