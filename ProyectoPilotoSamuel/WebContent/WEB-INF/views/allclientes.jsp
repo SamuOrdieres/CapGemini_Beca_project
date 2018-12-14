@@ -33,11 +33,11 @@
 
     <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
 
-      <a class="navbar-brand mr-1" href="index.html">SamuOrdieres</a>
-
       <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
         <i class="fas fa-bars"></i>
       </button>
+      
+      <a class="navbar-brand mr-1" href="index.html">SamuOrdieres</a>
 
       <!-- Navbar Search -->
       <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
@@ -82,10 +82,9 @@
             <i class="fas fa-user-circle fa-fw"></i>
           </a>
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-            <a class="dropdown-item" href="#">${loggedinuser} <em>(settings)</em></a>
-            <a class="dropdown-item" href="#">Activity Log</a>
+            <a class="dropdown-item" href="#"><i class="fas fa-fw fa-user-cog"></i><em> ${loggedinuser}</em></a>
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="<c:url value="/logout" />" >Logout</a>
+            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal"></i> Logout</a>
           </div>
         </li>
       </ul>
@@ -96,7 +95,7 @@
     <div id="wrapper">
 
       <!-- Sidebar -->
-      <ul class="sidebar navbar-nav">
+      <ul class="sidebar navbar-nav toggled">
         <li class="nav-item">
           <a class="nav-link" href="index.html">
             <i class="fas fa-fw fa-tachometer-alt"></i>
@@ -125,25 +124,27 @@
             <i class="fas fa-fw fa-chart-area"></i>
             <span>Charts</span></a>
         </li>
+        <sec:authorize access="hasRole('ADMIN') or hasRole('DBA')">
         <li class="nav-item">
           <a class="nav-link" href="<c:url value='/listusers' />">
             <i class="fas fa-fw fa-user-shield"></i>
-            <span>Usuarios</span></a>
+            <span>Users</span></a>
         </li>
+        </sec:authorize>
         <li class="nav-item active">
           <a class="nav-link" href="<c:url value='/list' />">
             <i class="fas fa-fw fa-user-friends"></i>
-            <span>Clientes</span></a>
+            <span>Clients</span></a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="<c:url value='/allcentrosturisticos' />">
             <i class="fas fa-fw fa-hotel"></i>
-            <span>Centros Turisticos</span></a>
+            <span>Hotel</span></a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="<c:url value='/allreservas' />">
             <i class="fas fa-fw fa-calendar-check"></i>
-            <span>Reservas</span></a>
+            <span>Bookings</span></a>
         </li>
       </ul>
 
@@ -156,42 +157,45 @@
             <li class="breadcrumb-item">
               <a href="#">Dashboard</a>
             </li>
-            <li class="breadcrumb-item active">Clientes</li>
+            <li class="breadcrumb-item active">Clients</li>
           </ol>
 
           <!-- DataTables Example -->
           <div class="card mb-3">
             <div class="card-header">
-              <i class="fas fa-table"></i> Clientes
+              <i class="fas fa-table"></i> Clients Data
               </div>
             <div class="card-body">
               <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                   <thead>
                     <tr>
-                      <th>Nombre</th>
-                      <th>Primer Apellido</th>
-                      <th>Segundo Apellido</th>
-<!--                       <th>Fecha Entrada</th> -->
-<!--                       <th>Fecha Salida</th> -->
-<!--                       <th>Centro Turistico</th> -->
+                      <th>Name</th>
+                      <th>Surname</th>
+                      <th>Second surname Apellido</th>
                       <th>Email</th>
-                      <th>DNI / NIE</th>
-                      <th>Eliminar</th>
-                      
+                      <th>ID Number</th>
+					  <sec:authorize access="hasRole('ADMIN') or hasRole('DBA')">
+                      	<th width="30"></th>
+                      </sec:authorize>
+					  <sec:authorize access="hasRole('ADMIN')">
+                      	<th width="30"></th>
+                      </sec:authorize>                      
                     </tr>
                   </thead>
                   <tfoot>
                     <tr>
-                      <th>Nombre</th>
-                      <th>Primer Apellido</th>
-                      <th>Segundo Apellido</th>
-<!--                       <th>Fecha Entrada</th> -->
-<!--                       <th>Fecha Salida</th> -->
-<!--                       <th>Centro Turistico</th> -->
+                      <th>Name</th>
+                      <th>Surname</th>
+                      <th>Second surname</th>
                       <th>Email</th>
-                      <th>DNI / NIE</th>
-                      <th>Eliminar</th>
+                      <th>ID Number</th>
+                      <sec:authorize access="hasRole('ADMIN') or hasRole('DBA')">
+                      	<th width="10"></th>
+                      </sec:authorize>
+					  <sec:authorize access="hasRole('ADMIN')">
+                      	<th width="10"></th>
+                      </sec:authorize>                      
                     </tr>
                   </tfoot>
                   <tbody>
@@ -200,12 +204,14 @@
                       <td>${cliente.nombre}</td>
                       <td>${cliente.primerApellido}</td>
                       <td>${cliente.segundoApellido}</td>
-<%-- 					  <td>${cliente.fechaEntrada}</td> --%>
-<%-- 					  <td>${cliente.fechaSalida}</td> --%>
-<%-- 					  <td>${cliente.centroTuristicoId}</td> --%>
 					  <td>${cliente.email.email}</td>
-					  <td><a href="<c:url value='/edit-${cliente.dni}-cliente' />">${cliente.dni}</a></td>
-					  <td><a href="<c:url value='/delete-${cliente.dni}-cliente' />">delete</a></td>
+					  <td>${cliente.dni}</td>
+					  <sec:authorize access="hasRole('ADMIN') or hasRole('DBA')">
+					  	<td><a href="<c:url value='/edit-${cliente.dni}-cliente' />" class="btn btn-success custom-width"><i class="fas fa-fw fa-user-edit"></i></a></td>
+                      </sec:authorize>
+					  <sec:authorize access="hasRole('ADMIN')">
+					  	<td><a href="<c:url value='/delete-${cliente.dni}-cliente' />" class="btn btn-danger custom-width"><i class="fas fa-fw fa-user-minus"></i></a></td>
+					  </sec:authorize>
                     </tr>
                   </c:forEach>
                   </tbody>
@@ -218,7 +224,7 @@
           </div>
 
           <p class="small text-center text-muted my-5">
-            <em>Más clientes el próximo año...</em>
+            <em>More clients next year...</em>
           </p>
 
         </div>
@@ -228,7 +234,7 @@
         <footer class="sticky-footer">
           <div class="container my-auto">
             <div class="copyright text-center my-auto">
-              <span>Copyright © SamuOrdieres Project 2018</span>
+              <span>Copyright © SamuOrdieres 2018</span>
             </div>
           </div>
         </footer>
@@ -251,13 +257,13 @@
           <div class="modal-header">
             <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
             <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">Ã—</span>
+              <span aria-hidden="true"><i class="fas fa-fw fa-window-close"></i></span>
             </button>
           </div>
           <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
           <div class="modal-footer">
             <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-            <a class="btn btn-primary" href="login.html">Logout</a>
+            <a class="btn btn-primary" href="<c:url value='/logout'/>" >Logout</a>
           </div>
         </div>
       </div>

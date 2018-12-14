@@ -23,7 +23,6 @@
 
     <!-- Custom styles for this template-->
 	<link href="${pageContext.request.contextPath}/assets/css/sb-admin.css" rel="stylesheet">
-    <link href="${pageContext.request.contextPath}/assets/css/app.css" rel="stylesheet">
     
   </head>
 
