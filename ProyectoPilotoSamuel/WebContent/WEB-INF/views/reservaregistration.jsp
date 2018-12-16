@@ -38,17 +38,17 @@
 		<div class="card card-register mx-auto mt-5">
 			<form:form method="POST" modelAttribute="reserva">
 				<form:input type="hidden" path="id" id="id" />
-				<div class="card-header">Registrar una reserva</div>
+				<div class="card-header">Register a new Booking</div>
 				<div class="card-body">
 					<form>
 					<div class="form-group">
 							<div class="form-row">
 								<div class="col-md">
 									<div class="form-label-group">
-										<form:select path="centroTuristico.id" id="centroTuristicoId" name="centroTuristicoId" class="form-control" placeholder="Centro Turistico" required="required" autofocus="autofocus">
-										<label for="centroTuristicoId">Centro Turistico: </label>
+										<form:select path="centroTuristico.id" id="centroTuristicoId" name="centroTuristicoId" class="form-control" placeholder="Hotel" required="required" autofocus="autofocus">
+										<label for="centroTuristicoId">Hotel</label>
 										<form:errors path="centroTuristico.id" cssClass="error" />
-										    <form:option value="-1">-- Selecciona el Centro Turistico --</form:option>
+										    <form:option value="-1">-- Select the hotel --</form:option>
 											<form:options items="${centrosTuristicos}" itemLabel="nombre" itemValue="id"/>
 										</form:select>
 									</div>
@@ -59,10 +59,10 @@
 							<div class="form-row">
 								<div class="col-md">
 									<div class="form-label-group">
-										<form:select path="cliente.id" id="clienteId" name="clienteId" class="form-control" placeholder="Cliente" required="required" autofocus="autofocus">
-										<label for="clienteId">Cliente: </label>
+										<form:select path="cliente.id" id="clienteId" name="clienteId" class="form-control" placeholder="Client" required="required" autofocus="autofocus">
+										<label for="clienteId">Client</label>
 										<form:errors path="cliente.id" cssClass="error" />
-										    <form:option value="-1">-- Selecciona el Cliente --</form:option>
+										    <form:option value="-1">-- Select the Client --</form:option>
 											<form:options items="${clientes}" itemLabel="fullNameDni" itemValue="id"/>
 										</form:select>
 									</div>
@@ -103,7 +103,7 @@
 				</div>
 			</form:form>
 			<div class="text-center">
-				<a class="d-block small mt-3" href="<c:url value='/allreservas' />">Listado de Reservas</a> 
+				<a class="d-block small mt-3" href="<c:url value='/allreservas' />">Back</a> 
 			</div>
 		</div>
 	</div>

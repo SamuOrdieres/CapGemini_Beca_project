@@ -38,22 +38,22 @@
 		<div class="card card-register mx-auto mt-5">
 			<form:form method="POST" modelAttribute="centroTuristico">
 				<form:input type="hidden" path="id" id="id" />
-				<div class="card-header">Registrar un Centro Turistico</div>
+				<div class="card-header">Register a new Hotel</div>
 				<div class="card-body">
 					<form>
 						<div class="form-group">
 							<div class="form-row">
 								<div class="col-md-6">
 									<div class="form-label-group">
-										<form:input path="nombre" id="nombre" class="form-control" placeholder="Nombre del centro turistico" required="required"	autofocus="autofocus" />
-										<label for="nombre">Nombre: </label>
+										<form:input path="nombre" id="nombre" class="form-control" placeholder="Name" required="required"	autofocus="autofocus" />
+										<label for="nombre">Name</label>
 										<form:errors path="nombre" cssClass="error" />
 									</div>
 								</div>
 								<div class="col-md-6">
 									<div class="form-label-group">
-										<form:input path="habitaciones" id="habitaciones" class="form-control" placeholder="Nombre" required="required" autofocus="autofocus" type="number"/>
-										<label for="habitaciones">Numero de habitaciones: </label>
+										<form:input path="habitaciones" id="habitaciones" class="form-control" placeholder="Nr. of rooms" required="required" autofocus="autofocus" type="number"/>
+										<label for="habitaciones">Nr.of rooms </label>
 										<form:errors path="habitaciones" cssClass="error" />
 									</div>
 								</div>
@@ -74,10 +74,8 @@
 				</div>
 			</form:form>
 			<div class="text-center">
-						<a class="d-block small mt-3" href="login.html">Login Page</a> <a
-							class="d-block small" href="forgot-password.html">Forgot
-							Password?</a>
-					</div>
+				<a class="d-block small mt-3" href="<c:url value='/allcentrosturisticos' />">Back</a>
+			</div>
 		</div>
 	</div>
 

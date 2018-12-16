@@ -14,7 +14,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
-<title>Nuevo Cliente - SamuProject</title>
+<title>New Client - SamuProject</title>
 
 <!-- Bootstrap core CSS-->
 <link
@@ -38,22 +38,22 @@
 		<div class="card card-register mx-auto mt-5">
 			<form:form method="POST" modelAttribute="cliente">
 				<form:input type="hidden" path="id" id="id" />
-				<div class="card-header">Registrar un cliente</div>
+				<div class="card-header">Register a new Client</div>
 				<div class="card-body">
 					<form>
 						<div class="form-group">
 							<div class="form-row">
 								<div class="col-md-6">
 									<div class="form-label-group">
-										<form:input path="dni" id="dni" class="form-control" placeholder="DNI / NIE" required="required"	autofocus="autofocus" />
-										<label for="dni">DNI / NIE: </label>
+										<form:input path="dni" id="dni" class="form-control" placeholder="Id Nr." required="required"	autofocus="autofocus" />
+										<label for="dni">ID Nr. </label>
 										<form:errors path="dni" cssClass="error" />
 									</div>
 								</div>
 								<div class="col-md-6">
 									<div class="form-label-group">
-										<form:input path="nombre" id="nombre" class="form-control" placeholder="Nombre" required="required" autofocus="autofocus" />
-										<label for="nombre">Nombre: </label>
+										<form:input path="nombre" id="nombre" class="form-control" placeholder="Name" required="required" autofocus="autofocus" />
+										<label for="nombre">Name </label>
 										<form:errors path="nombre" cssClass="error" />
 									</div>
 								</div>
@@ -63,15 +63,15 @@
 							<div class="form-row">
 								<div class="col-md-6">
 									<div class="form-label-group">
-										<form:input path="primerApellido" id="primerApellido" class="form-control" placeholder="Primer Apellido" required="required" autofocus="autofocus" />
-										<label for="nombre">Primer Apellido: </label>
+										<form:input path="primerApellido" id="primerApellido" class="form-control" placeholder="Surname" required="required" autofocus="autofocus" />
+										<label for="nombre">Surname </label>
 										<form:errors path="nombre" cssClass="error" />
 									</div>
 								</div>
 								<div class="col-md-6">
 									<div class="form-label-group">
-										<form:input path="segundoApellido" id="segundoApellido" class="form-control" placeholder="Segundo Apellido" required="required" autofocus="autofocus" />
-										<label for="segundoApellido">Segundo Apellido: </label>
+										<form:input path="segundoApellido" id="segundoApellido" class="form-control" placeholder="Second Surname" required="required" autofocus="autofocus" />
+										<label for="segundoApellido">Second Surname </label>
 										<form:errors path="segundoApellido" cssClass="error" />
 									</div>
 								</div>
@@ -88,38 +88,6 @@
 								</div>
 							</div>
 						</div>
-<!-- 						<div class="form-group"> -->
-<!-- 							<div class="form-row"> -->
-<!-- 								<div class="col-md"> -->
-<!-- 									<div class="form-label-group"> -->
-<%-- 										<form:select path="centroTuristico.id" id="centroTuristicoId" name="centroTuristicoId" class="form-control" placeholder="Centro Turistico" required="required" autofocus="autofocus"> --%>
-<!-- 										<label for="centroTuristicoId">Centro Turistico: </label> -->
-<%-- 										<form:errors path="centroTuristico.id" cssClass="error" /> --%>
-<%-- 										    <form:option value="">-- Selecciona el Centro Turistico --</form:option> --%>
-<%-- 											<form:options items="${centrosTuristicos}" itemLabel="nombre" itemValue="id"/> --%>
-<%-- 										</form:select> --%>
-<!-- 									</div> -->
-<!-- 								</div> -->
-<!-- 							</div> -->
-<!-- 						</div> -->
-<!-- 						<div class="form-group"> -->
-<!-- 							<div class="form-row"> -->
-<!-- 								<div class="col-md-6"> -->
-<!-- 									<div class="form-label-group"> -->
-<%-- 										<form:input path="fechaEntrada" id="fechaEntrada" class="form-control" required="required" autofocus="autofocus"/> --%>
-<!-- 										<label for="fechaEntrada">Fecha de entrada: </label> -->
-<%-- 										<form:errors path="fechaEntrada" cssClass="error" /> --%>
-<!-- 									</div> -->
-<!-- 								</div> -->
-<!-- 								<div class="col-md-6"> -->
-<!-- 									<div class="form-label-group"> -->
-<%-- 										<form:input path="fechaSalida" id="fechaSalida" class="form-control" required="required" autofocus="autofocus"/> --%>
-<!-- 										<label for="fechaSalida">Fecha de salida: </label> -->
-<%-- 										<form:errors path="fechaSalida" cssClass="error" /> --%>
-<!-- 									</div> -->
-<!-- 								</div> -->
-<!-- 							</div> -->
-<!-- 						</div> -->
 						<c:choose>
 							<c:when test="${edit}">
 								<input type="submit" value="Update"
@@ -135,10 +103,8 @@
 				</div>
 			</form:form>
 			<div class="text-center">
-						<a class="d-block small mt-3" href="login.html">Login Page</a> <a
-							class="d-block small" href="forgot-password.html">Forgot
-							Password?</a>
-					</div>
+				<a class="d-block small mt-3" href="<c:url value='/list' />">Back</a>
+			</div>
 		</div>
 	</div>
 

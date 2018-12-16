@@ -79,17 +79,7 @@ public class AppController {
 
 	
 	
-	/*
-	 * INICIO
-	 */
-//	@RequestMapping(value = "/", method = RequestMethod.GET)
-//	public String inicio() {
-//		return "home";
-//	}
-
-	
-	
-	//  --- A PARTIR DE AQUÍ EMPIEZAN LOS METODOS DE CLIENTE ---
+	//  --- A PARTIR DE AQUI EMPIEZAN LOS METODOS DE CLIENTE ---
 
 	
 	/*
@@ -226,7 +216,7 @@ public class AppController {
 	/*
 	 * This method will LIST ALL EXISTING CLIENTES.
 	 */
-	@RequestMapping(value = {"/", "/list"}, method = RequestMethod.GET)
+	@RequestMapping(value = {"/", "/list", "/allclientes"}, method = RequestMethod.GET)
 	public String listClientes(ModelMap model) {
 
 		List<Cliente> clientes = clienteService.findAllClientes();
@@ -240,7 +230,7 @@ public class AppController {
 	
 	
 	
-	//  --- A PARTIR DE AQUÍ EMPIEZAN LOS METODOS DE USUARIO ---
+	//  --- A PARTIR DE AQUI EMPIEZAN LOS METODOS DE USUARIO ---
 	
 
 	/**
@@ -420,102 +410,11 @@ public class AppController {
         return authenticationTrustResolver.isAnonymous(authentication);
     }
 	
-	
-	
-	
-	
-//	/*
-//	 * This method will LIST ALL EXISTING USUARIOS.
-//	 */
-//	@RequestMapping(value = { "/usuarios", "/listUsuarios" }, method = RequestMethod.GET)
-//	public String listUsuarios(ModelMap model) {
-//
-//		List<Usuario> usuarios = userService.findAllUsuarios();
-//		model.addAttribute("usuarios", usuarios);
-//		return "allusers";
-//	}
-//
-//	
-//
-//	/*
-//	 * This method will provide the MEDIUM TO LOGIN WITH a USUARIO.
-//	 */
-//	@RequestMapping(value = "/login", method = RequestMethod.GET)
-//	public ModelAndView showLogin(HttpServletRequest request, HttpServletResponse response) {
-//		ModelAndView modelAndView = new ModelAndView("login");
-//		modelAndView.addObject("usuario", new Usuario());
-//		return modelAndView;
-//	}
-//
-//	
-//	
-//	/*
-//	 * This method CHECK IF THE USUARIOS EXISTS IN DDBB and show different
-//	 * VIEWS based on the NIVEL(rol) property of USUARIO.
-//	 */
-//	
-//	@RequestMapping(value = "/loginProcess", method = RequestMethod.POST)
-//	public ModelAndView loginProcess(HttpServletRequest request, HttpServletResponse response, @ModelAttribute("usuario") Usuario usuario) {
-//		
-//		ModelAndView modelAndView = null;
-//		Usuario usuarioTemp = userService.validateUser(usuario);
-//		
-//		if (null != usuarioTemp) {
-//			
-//			List<Cliente> clientes = clienteService.findAllClientes();
-//
-//			switch (usuarioTemp.getNivel()) {
-//
-//			case (1):
-//				modelAndView = new ModelAndView("onlyviewclientes");
-//				modelAndView.addObject("clientes", clientes);
-//				break;
-//
-//			case (2):
-//				modelAndView = new ModelAndView("allclientes");
-//				modelAndView.addObject("clientes", clientes);
-//				break;
-//
-//			}
-//
-//		} else {
-//			modelAndView = new ModelAndView("login");
-//			modelAndView.addObject("message", "Username or Password is wrong!!");
-//		}
-//		return modelAndView;
-//	}
-//
-//	
-	
 	//  --- FIN DE LOS METODOS DE USUARIO ---
 	
 	
 	
-	
-	//  --- A PARTIR DE AQUÍ EMPIEZAN LOS METODOS DE EMPLEADO ---
-	
-	
-	//  ** ACTUALMENTE SIN USO **
-	
-	/*
-	 * This method will provide the medium to add a new empleado.
-	 */
-	
-	@RequestMapping(value = { "/userregistration" }, method = RequestMethod.GET)
-	public String newUsuario(ModelMap model) {
-		Empleado empleado = new Empleado();
-		model.addAttribute("empleado", empleado);
-		model.addAttribute("edit", false);
-		return "registration";
-	}
-	
-	
-	//  --- FIN DE LOS METODOS DE EMPLEADO ---
-	
-	
-	
-	
-	//  --- A PARTIR DE AQUÍ EMPIEZAN LOS METODOS DE CENTRO TURISTICO ---
+	//  --- A PARTIR DE AQUI EMPIEZAN LOS METODOS DE CENTRO TURISTICO ---
 
 	
 	/*
@@ -582,7 +481,7 @@ public class AppController {
 		
 		centroTuristicoService.saveCentroTuristico(centroTuristico);
 
-		model.addAttribute("success", "El Centro Turístico: " + centroTuristico.getNombre() + ", se ha REGISTRADO SATISFACTORIAMENTE");
+		model.addAttribute("success", "El Centro Turï¿½stico: " + centroTuristico.getNombre() + ", se ha REGISTRADO SATISFACTORIAMENTE");
 		return "success";
 	}
 	
@@ -621,7 +520,7 @@ public class AppController {
 		
 		
 
-		model.addAttribute("success", "El Centro Turístico: " + centroTuristico.getNombre() + ", se ha ACTUALIZADO SATISFACTORIAMENTE");
+		model.addAttribute("success", "El Centro Turï¿½stico: " + centroTuristico.getNombre() + ", se ha ACTUALIZADO SATISFACTORIAMENTE");
 		return "success";
 	}
 
@@ -641,7 +540,7 @@ public class AppController {
 	
 	
 	
-	//  --- A PARTIR DE AQUÍ EMPIEZAN LOS METODOS DE RESERVA ---
+	//  --- A PARTIR DE AQUï¿½ EMPIEZAN LOS METODOS DE RESERVA ---
 
 	
 	/*

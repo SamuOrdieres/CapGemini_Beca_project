@@ -139,7 +139,7 @@
         <li class="nav-item">
           <a class="nav-link" href="<c:url value='/allcentrosturisticos' />">
             <i class="fas fa-fw fa-hotel"></i>
-            <span>Hotel</span></a>
+            <span>Hotels</span></a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="<c:url value='/allreservas' />">
@@ -207,10 +207,10 @@
 					  <td>${cliente.email.email}</td>
 					  <td>${cliente.dni}</td>
 					  <sec:authorize access="hasRole('ADMIN') or hasRole('DBA')">
-					  	<td><a href="<c:url value='/edit-${cliente.dni}-cliente' />" class="btn btn-success custom-width"><i class="fas fa-fw fa-user-edit"></i></a></td>
+					  	<td><a href="<c:url value='/edit-${cliente.dni}-cliente'/>" class="btn btn-success custom-width" title="edite element"><i class="fas fa-fw fa-user-edit"></i></a></td>
                       </sec:authorize>
 					  <sec:authorize access="hasRole('ADMIN')">
-					  	<td><a href="<c:url value='/delete-${cliente.dni}-cliente' />" class="btn btn-danger custom-width"><i class="fas fa-fw fa-user-minus"></i></a></td>
+					  	<td><a href="<c:url value='/delete-${cliente.dni}-cliente' />" class="btn btn-danger custom-width" title="delete element"><i class="fas fa-fw fa-user-minus"></i></a></td>
 					  </sec:authorize>
                     </tr>
                   </c:forEach>
@@ -219,7 +219,7 @@
               </div>
             </div>
             <div class="card-footer small text-muted">
-            <a href="<c:url value='/new' />">Add New Cliente</a>
+            <a href="<c:url value='/new' />">Add New Client</a>
 			</div>
           </div>
 

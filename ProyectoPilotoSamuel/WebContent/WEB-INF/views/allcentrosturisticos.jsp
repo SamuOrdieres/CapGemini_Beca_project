@@ -1,7 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
+<%@ page isELIgnored="false" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -13,7 +13,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Centros Turisticos - SamuProject</title>
+    <title>Hotels - SamuProject</title>
 
     <!-- Bootstrap core CSS-->
     <link href="${pageContext.request.contextPath}/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -33,11 +33,11 @@
 
     <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
 
-      <a class="navbar-brand mr-1" href="index.html">SamuOrdieres</a>
-
       <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
         <i class="fas fa-bars"></i>
       </button>
+      
+      <a class="navbar-brand mr-1" href="index.html">SamuOrdieres</a>
 
       <!-- Navbar Search -->
       <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
@@ -82,20 +82,20 @@
             <i class="fas fa-user-circle fa-fw"></i>
           </a>
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-            <a class="dropdown-item" href="#">Settings</a>
-            <a class="dropdown-item" href="#">Activity Log</a>
+            <a class="dropdown-item" href="#"><i class="fas fa-fw fa-user-cog"></i><em> ${loggedinuser}</em></a>
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">Logout</a>
+            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal"></i> Logout</a>
           </div>
         </li>
       </ul>
+
 
     </nav>
 
     <div id="wrapper">
 
       <!-- Sidebar -->
-      <ul class="sidebar navbar-nav">
+      <ul class="sidebar navbar-nav toggled">
         <li class="nav-item">
           <a class="nav-link" href="index.html">
             <i class="fas fa-fw fa-tachometer-alt"></i>
@@ -118,25 +118,33 @@
             <a class="dropdown-item" href="blank.html">Blank Page</a>
           </div>
         </li>
-        <li class="nav-item">
+        
+       <li class="nav-item">
           <a class="nav-link" href="charts.html">
             <i class="fas fa-fw fa-chart-area"></i>
             <span>Charts</span></a>
         </li>
+        <sec:authorize access="hasRole('ADMIN') or hasRole('DBA')">
+        <li class="nav-item">
+          <a class="nav-link" href="<c:url value='/listusers' />">
+            <i class="fas fa-fw fa-user-shield"></i>
+            <span>Users</span></a>
+        </li>
+        </sec:authorize>
         <li class="nav-item">
           <a class="nav-link" href="<c:url value='/list' />">
             <i class="fas fa-fw fa-user-friends"></i>
-            <span>Clientes</span></a>
+            <span>Clients</span></a>
         </li>
         <li class="nav-item active">
           <a class="nav-link" href="<c:url value='/allcentrosturisticos' />">
             <i class="fas fa-fw fa-hotel"></i>
-            <span>Centros Turisticos</span></a>
+            <span>Hotels</span></a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="<c:url value='/allreservas' />">
             <i class="fas fa-fw fa-calendar-check"></i>
-            <span>Reservas</span></a>
+            <span>Bookings</span></a>
         </li>
       </ul>
 
@@ -149,38 +157,52 @@
             <li class="breadcrumb-item">
               <a href="#">Dashboard</a>
             </li>
-            <li class="breadcrumb-item active">Centros Turisticos</li>
+            <li class="breadcrumb-item active">Hotels</li>
           </ol>
 
           <!-- DataTables Example -->
           <div class="card mb-3">
             <div class="card-header">
-              <i class="fas fa-table"></i> Centro Turisticos
+              <i class="fas fa-table"></i> Hotels Data
               </div>
             <div class="card-body">
               <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                   <thead>
                     <tr>
-                      <th>Nombre</th>
-                      <th>Habitaciones</th>
-                      <th>Eliminar</th>
-                      
+                      <th>Name</th>
+                      <th>Rooms</th>
+					  <sec:authorize access="hasRole('ADMIN') or hasRole('DBA')">
+                      	<th width="30"></th>
+                      </sec:authorize>
+					  <sec:authorize access="hasRole('ADMIN')">
+                      	<th width="30"></th>
+                      </sec:authorize>                      
                     </tr>
                   </thead>
                   <tfoot>
                     <tr>
-                      <th>Nombre</th>
-                      <th>Habitaciones</th>
-                      <th>Eliminar</th>
+                      <th>Name</th>
+                      <th>Rooms</th>
+					  <sec:authorize access="hasRole('ADMIN') or hasRole('DBA')">
+                      	<th width="30"></th>
+                      </sec:authorize>
+					  <sec:authorize access="hasRole('ADMIN')">
+                      	<th width="30"></th>
+                      </sec:authorize>                    
                     </tr>
                   </tfoot>
                   <tbody>
                   <c:forEach items="${centrosTuristicos}" var="centroTuristico">
                     <tr>
-                      <td><a href="<c:url value='/edit-${centroTuristico.id}-centroturistico' />">${centroTuristico.nombre}</a></td>
+                      <td>${centroTuristico.nombre}</td>
                       <td>${centroTuristico.habitaciones}</td>
-					  <td><a href="<c:url value='/delete-${centroTuristico.id}-centroturistico' />">delete</a></td>
+                      <sec:authorize access="hasRole('ADMIN') or hasRole('DBA')">
+					  	<td><a href="<c:url value='/edit-${centroTuristico.id}-centroturistico' />" class="btn btn-success custom-width" title="edit element"><i class="fas fa-fw fa-edit"></i></a></td>
+                      </sec:authorize>
+					  <sec:authorize access="hasRole('ADMIN')">
+					  	<td><a href="<c:url value='/delete-${centroTuristico.id}-centroturistico' />" class="btn btn-danger custom-width" title="delete element"><i class="fas fa-fw fa-trash"></i></a></td>
+					  </sec:authorize>
                     </tr>
                   </c:forEach>
                   </tbody>
@@ -188,12 +210,12 @@
               </div>
             </div>
             <div class="card-footer small text-muted">
-            <a href="<c:url value='/newcentroturistico' />">Añadir nuevo Centro Turistico</a>
+            <a href="<c:url value='/newcentroturistico' />">Add new Hotel</a>
 			</div>
           </div>
 
           <p class="small text-center text-muted my-5">
-            <em>Más Centros Turísticos el próximo año...</em>
+            <em>More Hotels next year...</em>
           </p>
 
         </div>
@@ -226,13 +248,13 @@
           <div class="modal-header">
             <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
             <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">Ã—</span>
+              <span aria-hidden="true"><i class="fas fa-fw fa-window-close"></i></span>
             </button>
           </div>
           <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
           <div class="modal-footer">
             <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-            <a class="btn btn-primary" href="login.html">Logout</a>
+            <a class="btn btn-primary" href="<c:url value='/logout'/>" >Logout</a>
           </div>
         </div>
       </div>
